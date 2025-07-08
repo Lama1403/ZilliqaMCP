@@ -1,0 +1,1813 @@
+TITLE: GetNumDSBlocks API Request Examples
+DESCRIPTION: Demonstrates how to make an API request to the `GetNumDSBlocks` endpoint using cURL, Node.js, Java, Python, and Go. These examples show the common JSON-RPC structure for interacting with the Zilliqa API.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetNumDSBlocks
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetNumDSBlocks",
+    "params": [""]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+LANGUAGE: node.js
+CODE:
+```
+const numDsBlock = await zilliqa.blockchain.getNumDSBlocks();
+console.log(numDsBlock.result);
+```
+
+LANGUAGE: java
+CODE:
+```
+public class App {
+    public static void main(String[] args) throws IOException {
+        HttpProvider client = new HttpProvider("https://api.zilliqa.com/");
+        Rep<String> numDSBlocks = client.getNumDSBlocks();
+        System.out.println(new Gson().toJson(numDSBlocks));
+    }
+}
+```
+
+LANGUAGE: python
+CODE:
+```
+from pyzil.zilliqa import chain
+chain.set_active_chain(chain.MainNet)
+print(chain.active_chain.api.GetNumDSBlocks())
+```
+
+LANGUAGE: go
+CODE:
+```
+func GetNumDSBlocks() {
+    provider := NewProvider("https://api.zilliqa.com/")
+    response := provider.GetNumDSBlocks()
+    result, _ := json.Marshal(response)
+    fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: Example cURL Request for GetTxnBodiesForTxBlockEx
+DESCRIPTION: Example demonstrating how to invoke the `GetTxnBodiesForTxBlockEx` API using a cURL command, specifying the block and page numbers in the JSON-RPC parameters.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetTxnBodiesForTxBlockEx
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetTxnBodiesForTxBlockEx",
+    "params": ["1002353", "2"]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+----------------------------------------
+
+TITLE: GetBlockchainInfo API Request Examples
+DESCRIPTION: This section provides code examples for making a `GetBlockchainInfo` API request using various programming languages to retrieve current network statistics from the Zilliqa blockchain.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetBlockchainInfo
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetBlockchainInfo",
+    "params": [""]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+LANGUAGE: node.js
+CODE:
+```
+const blockChainInfo = await zilliqa.blockchain.getBlockChainInfo();
+console.log(blockChainInfo.result);
+```
+
+LANGUAGE: java
+CODE:
+```
+public class App {
+   public static void main(String[] args) throws IOException {
+       HttpProvider client = new HttpProvider("https://api.zilliqa.com/");
+       Rep<BlockchainInfo> blockchainInfo = client.getBlockchainInfo();
+       System.out.println(new Gson().toJson(blockchainInfo));
+    }
+}
+```
+
+LANGUAGE: python
+CODE:
+```
+from pyzil.zilliqa import chain
+chain.set_active_chain(chain.MainNet)
+print(chain.active_chain.api.GetBlockchainInfo())
+```
+
+LANGUAGE: go
+CODE:
+```
+func GetBlockchainInfo() {
+  provider := NewProvider("https://api.zilliqa.com/")
+  response := provider.GetBlockchainInfo()
+  result, _ := json.Marshal(response)
+  fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: GetTxBlockRate API Request Examples
+DESCRIPTION: Demonstrates how to call the `GetTxBlockRate` API method using cURL, Node.js, Java, Python, and Go.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetTxBlockRate
+
+LANGUAGE: cURL
+CODE:
+```
+ curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetTxBlockRate",
+    "params": [""]
+ }' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+LANGUAGE: JavaScript
+CODE:
+```
+const txBlockRate = await zilliqa.blockchain.getTxBlockRate();
+console.log(txBlockRate.result);
+```
+
+LANGUAGE: Java
+CODE:
+```
+public class App {
+    public static void main(String[] args) throws IOException {
+        HttpProvider client = new HttpProvider("https://api.zilliqa.com/");
+        Rep<Double> txBlockRate = client.getTxBlockRate();
+        System.out.println(new Gson().toJson(txBlockRate));
+    }
+}
+```
+
+LANGUAGE: Python
+CODE:
+```
+from pyzil.zilliqa import chain
+chain.set_active_chain(chain.MainNet)
+print(chain.active_chain.api.GetTxBlockRate())
+```
+
+LANGUAGE: Go
+CODE:
+```
+func GetTxBlockRate() {
+    provider := NewProvider("https://api.zilliqa.com/")
+    response := provider.GetTxBlockRate()
+    result, _ := json.Marshal(response)
+    fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: Example Requests for Zilliqa TxBlockListing API
+DESCRIPTION: Illustrates how to call the Zilliqa `TxBlockListing` API endpoint using cURL, Node.js, Java, Python, and Go.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/TxBlockListing
+
+LANGUAGE: curl
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "TxBlockListing",
+    "params": [1]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+LANGUAGE: javascript
+CODE:
+```
+const txBlockListing = await zilliqa.blockchain.getTxBlockListing(1);
+console.log(txBlockListing.result);
+```
+
+LANGUAGE: java
+CODE:
+```
+public class App {
+    public static void main(String[] args) throws IOException {
+        HttpProvider client = new HttpProvider("https://api.zilliqa.com/");
+        Rep<BlockList> blockListing = client.getTxBlockListing(1);
+        System.out.println(new Gson().toJson(blockListing));
+    }
+}
+```
+
+LANGUAGE: python
+CODE:
+```
+from pyzil.zilliqa import chain
+chain.set_active_chain(chain.MainNet)
+print(chain.active_chain.api.GetTxBlockListing(1))
+```
+
+LANGUAGE: go
+CODE:
+```
+func TxBlockListing() {
+    provider := NewProvider("https://api.zilliqa.com/")
+    response := provider.TxBlockListing(1)
+    result, _ := json.Marshal(response)
+    fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: Example Request for eth_getUncleByBlockHashAndIndex
+DESCRIPTION: Demonstrates how to make a cURL request to the Zilliqa API for the `eth_getUncleByBlockHashAndIndex` method.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/eth/eth_getUncleByBlockHashAndIndex
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "eth_getUncleByBlockNumberAndIndex",
+    "params": [ "0x204", "0x0"
+ ]}' -H "Content-Type": "application/json" -X POST "https://api.zilliqa.com/"
+```
+
+----------------------------------------
+
+TITLE: cURL Example Request for net_listening API
+DESCRIPTION: Demonstrates how to construct and execute a cURL command to query the `net_listening` API endpoint. This example sends a JSON-RPC request to the Zilliqa API.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/net/net_listening
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+  "id": "1",
+  "jsonrpc": "2.0",
+  "method": "net_listening",
+  "params": []
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+----------------------------------------
+
+TITLE: Example cURL Request for GetTransactionsForTxBlockEx
+DESCRIPTION: Demonstrates how to make a cURL request to the GetTransactionsForTxBlockEx API endpoint with example block and page numbers.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetTransactionsForTxBlockEx
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetTransactionsForTxBlockEx",
+    "params": ["1002353", "2"]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+----------------------------------------
+
+TITLE: DSBlockListing API Call Examples
+DESCRIPTION: Demonstrates how to make an API request to retrieve a paginated list of DS blocks using the `DSBlockListing` method across various programming languages and cURL.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/DSBlockListing
+
+LANGUAGE: bash
+CODE:
+```
+curl -d '{
+        "id": "1",
+        "jsonrpc": "2.0",
+        "method": "DSBlockListing",
+        "params": [1]
+    }' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+LANGUAGE: javascript
+CODE:
+```
+const dsBlockListing = await zilliqa.blockchain.getDSBlockListing(1);
+    console.log(dsBlockListing.result);
+```
+
+LANGUAGE: java
+CODE:
+```
+public class App {
+        public static void main(String[] args) throws IOException {
+            HttpProvider client = new HttpProvider("https://api.zilliqa.com/");
+            Rep<BlockList> blockListing = client.getDSBlockListing(1);
+            System.out.println(new Gson().toJson(blockListing));
+        }
+    }
+```
+
+LANGUAGE: python
+CODE:
+```
+from pyzil.zilliqa import chain
+    chain.set_active_chain(chain.MainNet)
+    print(chain.active_chain.api.DSBlockListing(1))
+```
+
+LANGUAGE: go
+CODE:
+```
+func DSBlockListing() {
+    provider := NewProvider("https://api.zilliqa.com/")
+    response := provider.DSBlockListing(1)
+    result, _ := json.Marshal(response)
+    fmt.Println(string(result))
+    }
+```
+
+----------------------------------------
+
+TITLE: Example Request for GetPrevDifficulty API
+DESCRIPTION: Demonstrates how to invoke the `GetPrevDifficulty` API endpoint using various programming languages and cURL to retrieve the previous block's difficulty.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetPrevDifficulty
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetPrevDifficulty",
+    "params": [""]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+LANGUAGE: node.js
+CODE:
+```
+const prevDifficulty = await zilliqa.blockchain.getPrevDifficulty();
+console.log(prevDifficulty.result);
+```
+
+LANGUAGE: java
+CODE:
+```
+public class App {
+    public static void main(String[] args) throws IOException {
+        HttpProvider client = new HttpProvider("https://api.zilliqa.com/");
+        Rep<Integer> prevDifficulty = client.getPrevDifficulty();
+        System.out.println(new Gson().toJson(prevDifficulty));
+    }
+}
+```
+
+LANGUAGE: python
+CODE:
+```
+from pyzil.zilliqa import chain
+chain.set_active_chain(chain.MainNet)
+print(chain.active_chain.api.GetPrevDifficulty())
+```
+
+LANGUAGE: go
+CODE:
+```
+func GetPrevDifficulty() {
+    provider := NewProvider("https://api.zilliqa.com/}")
+    response := provider.GetPrevDifficulty()
+    result, _ := json.Marshal(response)
+    fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: Get Transaction Rate API Request Examples
+DESCRIPTION: Demonstrates how to make an API request to retrieve the current transaction rate using various programming languages and cURL.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetTransactionRate
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetTransactionRate",
+    "params": [""]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+LANGUAGE: javascript
+CODE:
+```
+const transactionRate = await zilliqa.blockchain.getTransactionRate();
+console.log(transactionRate.result);
+```
+
+LANGUAGE: java
+CODE:
+```
+public class App {
+    public static void main(String[] args) throws IOException {
+        HttpProvider client = new HttpProvider("https://api.zilliqa.com/");
+        Rep<Integer> transactionRate = client.getTransactionRate();
+        System.out.println(new Gson().toJson(transactionRate));
+    }
+}
+```
+
+LANGUAGE: python
+CODE:
+```
+from pyzil.zilliqa import chain
+chain.set_active_chain(chain.MainNet)
+print(chain.active_chain.api.GetTransactionRate())
+```
+
+LANGUAGE: go
+CODE:
+```
+func GetTransactionRate() {
+    provider := NewProvider("https://api.zilliqa.com/")
+    response := provider.GetTransactionRate()
+    result, _ := json.Marshal(response)
+    fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: Example Requests for Zilliqa GetStateProof API
+DESCRIPTION: These examples demonstrate how to programmatically interact with the Zilliqa `GetStateProof` API endpoint. They cover common client-side implementations using cURL for direct HTTP requests, Node.js for JavaScript environments, and Go for backend applications, illustrating the necessary parameters for a successful call.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetStateProof
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetStateProof",
+    "params": ["6d84363526a2d764835f8cf52dfeefe80a360fac","A0BD91DE66D97E6930118179BA4F1836C366C4CB3309A6B354D26F52ABB2AAC6","39"]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+LANGUAGE: Node.js
+CODE:
+```
+const stateProof = await zilliqa.blockchain.getSmartContractSubState(
+  "fe001824823b12b58708bf24edd94d8b5e1cfcf7"
+);
+console.log(stateProof.result);
+```
+
+LANGUAGE: Go
+CODE:
+```
+func GetStateProof() {
+    provider := NewProvider("https://api.zilliqa.com/")
+    response, _ := provider.GetStateProof("6d84363526a2d764835f8cf52dfeefe80a360fac", "A0BD91DE66D97E6930118179BA4F1836C366C4CB3309A6B354D26F52ABB2AAC6","39")
+    result, _ := json.Marshal(response)
+    fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: GetNumTxnsTXEpoch API Usage Examples and Reference
+DESCRIPTION: Demonstrates how to call the `GetNumTxnsTXEpoch` method using various programming languages and provides the expected JSON response structure and required API arguments.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetNumTxnsTXEpoch
+
+LANGUAGE: curl
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetNumTxnsTxEpoch",
+    "params": [""]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+LANGUAGE: javascript
+CODE:
+```
+const numTxnsTxEpoch = await zilliqa.blockchain.getNumTxnsTxEpoch();
+console.log(numTxnsTxEpoch.result);
+```
+
+LANGUAGE: java
+CODE:
+```
+public class App {
+    public static void main(String[] args) throws IOException {
+        HttpProvider client = new HttpProvider("https://api.zilliqa.com/");
+        Rep<String> numTxnsTxEpoch = client.getNumTxnsTxEpoch();
+        System.out.println(new Gson().toJson(numTxnsTxEpoch));
+    }
+}
+```
+
+LANGUAGE: python
+CODE:
+```
+from pyzil.zilliqa import chain
+chain.set_active_chain(chain.MainNet)
+print(chain.active_chain.api.GetNumTxnsTxEpoch())
+```
+
+LANGUAGE: go
+CODE:
+```
+func GetNumTxnsTxEpoch() {
+    provider := NewProvider("https://api.zilliqa.com/")
+    response := provider.GetNumTxnsTxEpoch()
+    result, _ := json.Marshal(response)
+    fmt.Println(string(result))
+}
+```
+
+LANGUAGE: json
+CODE:
+```
+{
+  "id": "1",
+  "jsonrpc": "2.0",
+  "result": "38"
+}
+```
+
+LANGUAGE: APIDOC
+CODE:
+```
+GetNumTxnsTXEpoch Parameters:
+  id: string (Required) - "1"
+  jsonrpc: string (Required) - "2.0"
+  method: string (Required) - "GetNumTxnsTxEpoch"
+  params: string (Required) - Empty string ""
+```
+
+----------------------------------------
+
+TITLE: web3_ClientVersion API Method
+DESCRIPTION: Documents the 'web3_ClientVersion' API method, used to get the client version string.
+SOURCE: https://dev.zilliqa.com/zilliqa2/nodes/node
+
+LANGUAGE: APIDOC
+CODE:
+```
+web3_ClientVersion
+```
+
+----------------------------------------
+
+TITLE: GetNumTxBlocks API Response Example
+DESCRIPTION: An example of the JSON response returned by the `GetNumTxBlocks` API call, showing the structure and typical data.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetNumTxBlocks
+
+LANGUAGE: json
+CODE:
+```
+{
+  "id": "1",
+  "jsonrpc": "2.0",
+  "result": "589790"
+}
+```
+
+----------------------------------------
+
+TITLE: Example JSON Parameters for GetSmartContractSubState
+DESCRIPTION: Illustrates the structure of the `params` array required for the `GetSmartContractSubState` API call, showing how to specify the contract address, variable name, and indices. This example demonstrates querying the 'admins' variable at a specific index.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetSmartContractSubState
+
+LANGUAGE: JSON
+CODE:
+```
+"params":["fe001824823b12b58708bf24edd94d8b5e1cfcf7","admins",["0x9bfec715a6bd658fcb62b0f8cc9bfa2ade71434a"]]
+```
+
+----------------------------------------
+
+TITLE: GetBalance RPC Example Requests
+DESCRIPTION: Demonstrates how to call the GetBalance RPC method using various programming languages and cURL.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetBalance
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+   "id": "1",
+   "jsonrpc": "2.0",
+     "method": "GetBalance",
+     "params": ["1eefc4f453539e5ee732b49eb4792b268c2f3908"]
+}' -H "Content-Type: application/json" -X POST "https://api.zq2-devnet.zilliqa.com/"
+```
+
+LANGUAGE: node.js
+CODE:
+```
+const balance = await zilliqa.blockchain.getBalance(
+  "1eefc4f453539e5ee732b49eb4792b268c2f3908"
+);
+console.log(balance.result);
+```
+
+LANGUAGE: java
+CODE:
+```
+public class App {
+   public static void main(String[] args) throws IOException {
+       HttpProvider client = new HttpProvider("https://api.zilliqa.com/");
+       Rep<HttpProvider.BalanceResult> balance = client.getBalance("1eefc4f453539e5ee732b49eb4792b268c2f3908");
+       System.out.println(new Gson().toJson(balance));
+   }
+}
+```
+
+LANGUAGE: python
+CODE:
+```
+from pyzil.zilliqa import chain
+chain.set_active_chain(chain.MainNet)
+print(chain.active_chain.api.GetBalance("1eefc4f453539e5ee732b49eb4792b268c2f3908"))
+```
+
+LANGUAGE: go
+CODE:
+```
+func TestGetBalance() {
+  provider := NewProvider("https://api.zq2-devnet.zilliqa.com/")
+  response := provider.GetBalance("9bfec715a6bd658fcb62b0f8cc9bfa2ade71434a")
+  result, _ := json.Marshal(response)
+  fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: Zilliqa GetSmartContractState API Call Examples
+DESCRIPTION: Demonstrates various programming language implementations for calling the `GetSmartContractState` API endpoint. These examples show how to construct the request to fetch the state of a smart contract on the Zilliqa network, using the provided contract address.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetSmartContractState
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetSmartContractState",
+    "params": ["fe001824823b12b58708bf24edd94d8b5e1cfcf7"]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+LANGUAGE: JavaScript
+CODE:
+```
+const smartContractState = await zilliqa.blockchain.getSmartContractState(
+  "fe001824823b12b58708bf24edd94d8b5e1cfcf7"
+);
+console.log(smartContractState.result);
+```
+
+LANGUAGE: Java
+CODE:
+```
+public class App {
+    public static void main(String[] args) throws IOException {
+        HttpProvider client = new HttpProvider("https://api.zilliqa.com/");
+        String smartContractState = client.getSmartContractState("fe001824823b12b58708bf24edd94d8b5e1cfcf7");
+        System.out.println(smartContractState);
+    }
+}
+```
+
+LANGUAGE: Python
+CODE:
+```
+from pyzil.zilliqa import chain
+chain.set_active_chain(chain.MainNet)
+print(chain.active_chain.api.GetSmartContractState("fe001824823b12b58708bf24edd94d8b5e1cfcf7"))
+```
+
+LANGUAGE: Go
+CODE:
+```
+func GetSmartContractState() {
+    provider := NewProvider("https://api.zilliqa.com/")
+    response := provider.GetSmartContractState("fe001824823b12b58708bf24edd94d8b5e1cfcf7")
+    result, _ := json.Marshal(response)
+    fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: Get Transaction Rate API Example Response
+DESCRIPTION: An example of a successful JSON response from the GetTransactionRate API call, showing the transaction rate as a numerical value.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetTransactionRate
+
+LANGUAGE: json
+CODE:
+```
+{
+  "id": "1",
+  "jsonrpc": "2.0",
+  "result": 9.169180550334216
+}
+```
+
+----------------------------------------
+
+TITLE: Example Request for trace_transaction API (cURL)
+DESCRIPTION: Demonstrates how to make a JSON-RPC request to the Zilliqa API using cURL to call the `trace_transaction` method. The example includes the JSON payload with method, ID, and parameters, and specifies the content type and target API endpoint.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/trace/trace_transaction
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+"id": "1",
+"jsonrpc": "2.0",
+"method": "trace_transaction",
+"params": ["0x17104ac9d3312d8c136b7f44d4b8b47852618065ebfa534bd2d3b5ef218ca1f3"]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+----------------------------------------
+
+TITLE: API Methods for web3
+DESCRIPTION: Lists available API methods under the web3 category, providing general web3 utility functions.
+SOURCE: https://dev.zilliqa.com/zilliqa2/nodes/monitoring/statsagent
+
+LANGUAGE: APIDOC
+CODE:
+```
+web3 API Methods:
+- web3_ClientVersion
+- web3_sha3
+```
+
+----------------------------------------
+
+TITLE: Example eth_getTransactionByHash Request
+DESCRIPTION: Demonstrates how to make an API request using cURL to retrieve a transaction by its hash from the Zilliqa API. This example uses the `eth_getTransactionByHash` method with a specific transaction hash.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/eth/eth_getTransactionByHash
+
+LANGUAGE: curl
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "eth_getTransactionByHash",
+    "params": [ "0xf4818804242f4a1f5c8f9d255a51b80bd1e21c0047affffd5f480636ac2a9773"
+ ]}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+----------------------------------------
+
+TITLE: GetSmartContracts API Method Parameters
+DESCRIPTION: Details the required parameters for the `GetSmartContracts` API method, including their data types, whether they are mandatory, and a description of their purpose and example values.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetSmartContracts
+
+LANGUAGE: APIDOC
+CODE:
+```
+GetSmartContracts Method Parameters:
+  id (string, Required): "1"
+  jsonrpc (string, Required): "2.0"
+  method (string, Required): "GetSmartContracts"
+  params (string, Required): An User's account address of 20 bytes. Example: "1eefc4f453539e5ee732b49eb4792b268c2f3908" Also supports Bech32 address Example: "zil1rmhufazn2w09aeejkj0tg7fty6xz7wggup2tsh"
+```
+
+----------------------------------------
+
+TITLE: Example JSON Response for DSBlockListing API
+DESCRIPTION: Illustrates the structure of a successful response from the DSBlockListing API, showing an array of DS blocks with their block numbers and hashes, along with pagination details.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/DSBlockListing
+
+LANGUAGE: json
+CODE:
+```
+{
+  "id": "1",
+  "jsonrpc": "2.0",
+  "result": {
+    "data": [
+      {
+        "BlockNum": 5898,
+        "Hash": "4DEED80AFDCC89D5B691DCB54CCB846AD9D823D448A56ACAC4DBE5E1213244C7"
+      },
+      {
+        "BlockNum": 5897,
+        "Hash": "968E2E7820A3795DE8C8A7A2E94379CC10F50ADA5EA6F90C03C4E61E22EE83B5"
+      },
+      {
+        "BlockNum": 5896,
+        "Hash": "A52D113357910ADECEFA713D89A667030F521FFB153EEFA97A0D9E7E4AA5230B"
+      },
+      {
+        "BlockNum": 5895,
+        "Hash": "8d49d4b18b441dc0da6ca580f468c9e83278c47f0f54fe342e1fe1425c39044f"
+      },
+      {
+        "BlockNum": 5894,
+        "Hash": "b966c36557480a35a36a0d1c33723fd9bac8538588dea6716b4dfb2a05815458"
+      },
+      {
+        "BlockNum": 5893,
+        "Hash": "fc20118eec0f14fdc089fcfee528276337dcf403a308153485f24f2856998613"
+      },
+      {
+        "BlockNum": 5892,
+        "Hash": "4ed593d66b1ea5fa9a77cc1bb119baf90029c249bf5507b01079bc2fbf45aec7"
+      },
+      {
+        "BlockNum": 5891,
+        "Hash": "1385bf48e584ebb82cf11a9064d99b5e0b4ae560866a92efe9b78604e08fc821"
+      },
+      {
+        "BlockNum": 5890,
+        "Hash": "05d6d24a8f5411ff70fe58a09f38fd4b49ec4122b7c26817964a4a8b8a089c1f"
+      },
+      {
+        "BlockNum": 5889,
+        "Hash": "137e56be8966eba0c04138d79faa1515997fc790ccf5213c00bb13a3550cca39"
+      }
+    ],
+    "maxPages": 590
+  }
+}
+```
+
+----------------------------------------
+
+TITLE: web3_sha3 API Example Request
+DESCRIPTION: An example cURL command demonstrating how to call the `web3_sha3` method with a hex string input to compute its Keccak-256 hash. This request targets the Zilliqa API endpoint.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/web3/web3_sha3
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+  "id": "1",
+  "jsonrpc": "2.0",
+  "method": "web3_sha3",
+  "params": ["0x68656c6c6f20776f726c64"]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+----------------------------------------
+
+TITLE: API Methods for Web3 Module
+DESCRIPTION: Lists the available API methods under the web3 module, providing general web3 utility functions.
+SOURCE: https://dev.zilliqa.com/zilliqa2/sdk
+
+LANGUAGE: APIDOC
+CODE:
+```
+web3_ClientVersion
+web3_sha3
+```
+
+----------------------------------------
+
+TITLE: GetTxBlockRate API Example Response
+DESCRIPTION: Illustrates the expected JSON response structure for a successful `GetTxBlockRate` API call.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetTxBlockRate
+
+LANGUAGE: JSON
+CODE:
+```
+{
+  "id": "1",
+  "jsonrpc": "2.0",
+  "result": 0.014138050978963283
+}
+```
+
+----------------------------------------
+
+TITLE: Get Current Mini Epoch (Java)
+DESCRIPTION: Java example demonstrating how to fetch the current mini epoch using an HTTP provider.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetCurrentMiniEpoch
+
+LANGUAGE: java
+CODE:
+```
+public class App {
+    public static void main(String[] args) throws IOException {
+        HttpProvider client = new HttpProvider("https://api.zilliqa.com/");
+        Rep<String> currentMiniEpoch = client.getCurrentMiniEpoch();
+        System.out.println(new Gson().toJson(currentMiniEpoch));
+    }
+}
+```
+
+----------------------------------------
+
+TITLE: GetMinerInfo API Method
+DESCRIPTION: Documents the 'GetMinerInfo' API method, used to get information about the current miner.
+SOURCE: https://dev.zilliqa.com/zilliqa2/nodes/node
+
+LANGUAGE: APIDOC
+CODE:
+```
+GetMinerInfo
+```
+
+----------------------------------------
+
+TITLE: Example Response for GetPrevDifficulty API
+DESCRIPTION: Illustrates the typical JSON response structure returned by a successful call to the `GetPrevDifficulty` API endpoint.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetPrevDifficulty
+
+LANGUAGE: json
+CODE:
+```
+{
+  "id": "1",
+  "jsonrpc": "2.0",
+  "result": 91
+}
+```
+
+----------------------------------------
+
+TITLE: ots_getBlockDetails API Method
+DESCRIPTION: Documents the 'ots_getBlockDetails' API method, used to get details for a specific block.
+SOURCE: https://dev.zilliqa.com/zilliqa2/nodes/node
+
+LANGUAGE: APIDOC
+CODE:
+```
+ots_getBlockDetails
+```
+
+----------------------------------------
+
+TITLE: GetPrevDSDifficulty API Request with Python
+DESCRIPTION: Example of getting the previous DS difficulty using the pyzil library in Python.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetPrevDSDifficulty
+
+LANGUAGE: python
+CODE:
+```
+from pyzil.zilliqa import chain
+chain.set_active_chain(chain.MainNet)
+print(chain.active_chain.api.GetPrevDSDifficulty())
+```
+
+----------------------------------------
+
+TITLE: GetMinerInfo API Example Request using cURL
+DESCRIPTION: This example demonstrates how to make a JSON-RPC request to the GetMinerInfo API endpoint using cURL. The request specifies the method 'GetMinerInfo' and includes a parameter '5500'.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetMinerInfo
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetMinerInfo",
+    "params": ["5500"]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+----------------------------------------
+
+TITLE: trace_filter API Method Structure
+DESCRIPTION: Details the expected structure for the `trace_filter` API method, including placeholders for its example request, example response, and arguments. This method is part of the `trace` API module in Zilliqa.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/trace/trace_filter
+
+LANGUAGE: APIDOC
+CODE:
+```
+trace_filter:
+  Description: Filters and retrieves traces based on specified criteria.
+  Sections:
+    - Example Request: (Content not provided in source)
+    - Example response: (Content not provided in source)
+    - Arguments: (Content not provided in source)
+```
+
+----------------------------------------
+
+TITLE: Get Current Mini Epoch (cURL)
+DESCRIPTION: Example cURL command to request the current mini epoch from the Zilliqa API.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetCurrentMiniEpoch
+
+LANGUAGE: curl
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetCurrentMiniEpoch",
+    "params": [""]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+----------------------------------------
+
+TITLE: API Method: eth_simulateV1
+DESCRIPTION: Documents the 'eth_simulateV1' API method and its current implementation status within Zilliqa 2. This method is implemented but not yet documented.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis
+
+LANGUAGE: APIDOC
+CODE:
+```
+eth_simulateV1 - 🟣 Implemented, but not yet documented
+```
+
+----------------------------------------
+
+TITLE: GetNumTxBlocks API Request Examples
+DESCRIPTION: Demonstrates how to make an API call to retrieve the number of transaction blocks using cURL, Node.js, Java, Python, and Go.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetNumTxBlocks
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetNumTxBlocks",
+    "params": [""]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+LANGUAGE: node.js
+CODE:
+```
+const numTxBlock = await zilliqa.blockchain.getNumTxBlocks();
+console.log(numTxBlock.result);
+```
+
+LANGUAGE: java
+CODE:
+```
+public class App {
+    public static void main(String[] args) throws IOException {
+        HttpProvider client = new HttpProvider("https://api.zilliqa.com/");
+        Rep<String> numTxBlocks = client.getNumTxBlocks();
+        System.out.println(new Gson().toJson(numTxBlocks));
+    }
+}
+```
+
+LANGUAGE: python
+CODE:
+```
+from pyzil.zilliqa import chain
+chain.set_active_chain(chain.MainNet)
+print(chain.active_chain.api.GetNumTxBlocks())
+```
+
+LANGUAGE: go
+CODE:
+```
+func GetNumTxBlocks() {
+provider := NewProvider("https://api.zilliqa.com/")
+response := provider.GetNumTxBlocks()
+result, _ := json.Marshal(response)
+fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: GetNumTxnsDSEpoch API Response Example
+DESCRIPTION: An example of the JSON response returned by the `GetNumTxnsDSEpoch` API call, showing the structure and the `result` field containing the number of transactions.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetNumTxnsDSEpoch
+
+LANGUAGE: JSON
+CODE:
+```
+{
+  "id": "1",
+  "jsonrpc": "2.0",
+  "result": "416"
+}
+```
+
+----------------------------------------
+
+TITLE: Get Current Mini Epoch (Python)
+DESCRIPTION: Python example using `pyzil` to get the current mini epoch from the Zilliqa mainnet.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetCurrentMiniEpoch
+
+LANGUAGE: python
+CODE:
+```
+from pyzil.zilliqa import chain
+chain.set_active_chain(chain.MainNet)
+print(chain.active_chain.api.GetCurrentMiniEpoch())
+```
+
+----------------------------------------
+
+TITLE: API Methods for Trace Module
+DESCRIPTION: Lists the available API methods under the trace module, primarily used for tracing blockchain operations.
+SOURCE: https://dev.zilliqa.com/zilliqa2/sdk
+
+LANGUAGE: APIDOC
+CODE:
+```
+trace_block
+trace_filter
+trace_replayTransaction
+trace_transaction
+```
+
+----------------------------------------
+
+TITLE: API Methods for zilliqa
+DESCRIPTION: Lists available API methods under the zilliqa category, covering core blockchain interactions, account management, and smart contract queries.
+SOURCE: https://dev.zilliqa.com/zilliqa2/nodes/monitoring/statsagent
+
+LANGUAGE: APIDOC
+CODE:
+```
+zilliqa API Methods:
+- CreateTransaction
+- DSBlockListing
+- GetBalance
+- GetBlockchainInfo
+- GetContractAddressFromTransactionID
+- GetCurrentDSComm
+- GetCurrentDSEpoch
+- GetCurrentMiniEpoch
+- GetDSBlock
+- GetDSBlockRate
+- GetDSBlockVerbose
+- GetLatestDSBlock
+- GetLatestTxBlock
+- GetMinerInfo
+- GetMinimumGasPrice
+- GetNetworkId
+- GetNodeType
+- GetNumDSBlocks
+- GetNumPeers
+- GetNumTransactions
+- GetNumTxBlocks
+- GetNumTxnsDSEpoch
+- GetNumTxnsTXEpoch
+- GetPrevDifficulty
+- GetPrevDSDifficulty
+- GetRecentTransactions
+- GetShardingStructure
+- GetSmartContractCode
+- GetSmartContractInit
+- GetSmartContracts
+- GetSmartContractState
+- GetSmartContractSubState
+- GetSoftConfirmedTransaction
+- GetVersion
+- GetStateProof
+- GetTotalCoinSupply
+- GetTotalCoinSupplyAsInt
+- GetTransaction
+- GetTransactionRate
+- GetTransactionsForTxBlock
+- GetTransactionsForTxBlockEx
+- GetTransactionStatus
+- GetTxBlock
+- GetTxBlockRate
+- GetTxBlockVerbose
+- GetTxnBodiesForTxBlockEx
+- TxBlockListing
+```
+
+----------------------------------------
+
+TITLE: cURL Example Request for eth_getFilterLogs
+DESCRIPTION: Demonstrates how to construct a cURL command to call the `eth_getFilterLogs` API method, specifying the filter ID to retrieve associated logs.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/eth/eth_getFilterLogs
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "eth_getFilterLogs",
+    "params": ["0x16"]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+----------------------------------------
+
+TITLE: JSON Example Response for Zilliqa GetMinerInfo API
+DESCRIPTION: An example JSON response demonstrating the data structure returned by a successful `GetMinerInfo` API call, including details about the DS committee and individual shards with their respective nodes and sizes.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetMinerInfo
+
+LANGUAGE: JSON
+CODE:
+```
+{
+  "id": "1",
+  "jsonrpc": "2.0",
+  "result": {
+    "dscommittee": [
+      "0x03F25E4B68050496086758C33D16C47792F18D1102BB5DFC0CE5E3A57927008A0B",
+      "0x03CF937B2EBE194C72350A6A7E6612C2D8636A33753929F1553E6273442B2F8E5B",
+      "0x0372E43C4E7960F02E10F5AFE800E903579E2BE853B160681CBDF7C048FFB78A0F",
+      "...0x0397FD33ED459AD72939CA531385271311DA74094D89109F3876E81BEE84B4E414"
+    ],
+    "shards": [
+      {
+        "nodes": [
+          "0x0245C0DDAA493700F86A3943260EB04D05DEBD62897E3EC51AE65A704E5C65C0A6",
+          "0x0250CF4B40C0C984F2BB005599D2A7503F9C68F701A24CBC10B1EB2533575ADBA7",
+          "0x023F2F657F170563E9B28BF837AB295FD13A7E2A4117DB44B2ADFE536F28D28102",
+          "...0x02358F60B4BD90805E6940A901E3C3A5867FFF5BDBD5AD9BFD66FE47C9FA6F1035"
+        ],
+        "size": 535
+      },
+      {
+        "nodes": [
+          "0x02646640964F472CBE1E9BAF2DC5F1A0915AE529DDFF08F28DDE3E460C755DC8C4",
+          "0x025EC6741880EC217F921A8FFB4AACDB95FF6477E1BB66CB39950FB2723D3740C8",
+          "0x03DE42F6719E8A0147A93604C5F6A4304D14AD5F6A70C011EE37DBFC65D1E7F842",
+          "...0x02B1DB735BF54FC5765D89248DA1C07934282182F3C65CD9152D8F48C539BB5C53"
+        ],
+        "size": 535
+      },
+      {
+        "nodes": [
+          "0x0218C2BA9876BCF3EE9EFF220C9F4CF433F5BE09D9D592F3C657AE7353CFFC3245",
+          "0x02BCD61D2F47165E0CD6B3CF9429140C3F017C440DA63E9F44A84503A7D1E41590",
+          "0x03E7699C19CFF554D265DC9C797713A7403D99A607EA7C8794259150436EB9FFBB",
+          "...0x031169CB469B6083954F578C19FC7833A90D835AA75942820119272FC6EE4361A5"
+        ],
+        "size": 534
+      }
+    ]
+  }
+}
+```
+
+----------------------------------------
+
+TITLE: Get Current Mini Epoch (Node.js)
+DESCRIPTION: Node.js example using the Zilliqa SDK to retrieve the current mini epoch.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetCurrentMiniEpoch
+
+LANGUAGE: javascript
+CODE:
+```
+const currentMiniEpoch = await zilliqa.blockchain.getCurrentMiniEpoch();
+console.log(currentMiniEpoch.result);
+```
+
+----------------------------------------
+
+TITLE: GetNumDSBlocks API Response Example
+DESCRIPTION: An example of the JSON response returned by a successful call to the `GetNumDSBlocks` API method. The `result` field contains the number of DS blocks as a string.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetNumDSBlocks
+
+LANGUAGE: json
+CODE:
+```
+{
+  "id": "1",
+  "jsonrpc": "2.0",
+  "result": "5899"
+}
+```
+
+----------------------------------------
+
+TITLE: Get Zilliqa Transactions for Block by ID
+DESCRIPTION: This snippet demonstrates how to make API calls to retrieve validated transaction hashes for a specific Zilliqa transaction block ID. Examples are provided for cURL, Node.js, Java, Python, and Go, showcasing different ways to interact with the Zilliqa API.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetTransactionsForTxBlock
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetTransactionsForTxBlock",
+    "params": ["2"]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+LANGUAGE: Node.js
+CODE:
+```
+const txns = await zilliqa.blockchain.getTransactionsForTxBlock("2");
+console.log(txns.result);
+```
+
+LANGUAGE: Java
+CODE:
+```
+public class App {
+    public static void main(String[] args) throws IOException {
+        HttpProvider client = new HttpProvider("https://api.zilliqa.com/");
+        Rep<List<List<String>>> transactionList = client.getTransactionsForTxBlock("2");
+        System.out.println(new Gson().toJson(transactionList));
+    }
+}
+```
+
+LANGUAGE: Python
+CODE:
+```
+from pyzil.zilliqa import chain
+chain.set_active_chain(chain.MainNet)
+print(chain.active_chain.api.GetTransactionsForTxBlock("2"))
+```
+
+LANGUAGE: Go
+CODE:
+```
+func GetTransactionsForTxBlock() {
+    provider := NewProvider("https://api.zilliqa.com/")
+    response := provider.GetTransactionsForTxBlock("1")
+    result, _ := json.Marshal(response)
+    fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: Zilliqa Web3 API Methods
+DESCRIPTION: Lists Web3-related API methods, typically used for general client interaction and information.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetDSBlock
+
+LANGUAGE: APIDOC
+CODE:
+```
+web3:
+  - (No specific methods listed in the provided text)
+```
+
+----------------------------------------
+
+TITLE: GetBlockchainInfo API Method
+DESCRIPTION: Documents the 'GetBlockchainInfo' API method, used to get general information about the blockchain.
+SOURCE: https://dev.zilliqa.com/zilliqa2/nodes/node
+
+LANGUAGE: APIDOC
+CODE:
+```
+GetBlockchainInfo
+```
+
+----------------------------------------
+
+TITLE: DSBlockListing API Reference
+DESCRIPTION: Formal definition and description of the `DSBlockListing` API method, including its purpose and current status.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/DSBlockListing
+
+LANGUAGE: APIDOC
+CODE:
+```
+DSBlockListing:
+  Description: Returns a paginated list of up to 10 Directory Service (DS) blocks and their block hashes for a specified page. The maxPages variable that specifies the maximum number of pages available is also returned.
+  Status: Deprecated in ZQ2, returns placeholder for backwards compatibility.
+  Arguments: Not explicitly provided in the text, only a heading.
+```
+
+----------------------------------------
+
+TITLE: Get Current Mini Epoch (Go)
+DESCRIPTION: Go example showing how to retrieve and print the current mini epoch using a Zilliqa provider.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetCurrentMiniEpoch
+
+LANGUAGE: go
+CODE:
+```
+func GetCurrentMiniEpoch() {
+    provider := NewProvider("https://api.zilliqa.com/")
+    response := provider.GetCurrentMiniEpoch()
+    result, _ := json.Marshal(response)
+    fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: GetPrevDifficulty API Method
+DESCRIPTION: Documents the 'GetPrevDifficulty' API method, used to get the previous block difficulty.
+SOURCE: https://dev.zilliqa.com/zilliqa2/nodes/node
+
+LANGUAGE: APIDOC
+CODE:
+```
+GetPrevDifficulty
+```
+
+----------------------------------------
+
+TITLE: API Methods for net
+DESCRIPTION: Lists available API methods under the net category, primarily for network-related queries.
+SOURCE: https://dev.zilliqa.com/zilliqa2/nodes/monitoring/statsagent
+
+LANGUAGE: APIDOC
+CODE:
+```
+net API Methods:
+- net_listening
+- net_peerCount
+- net_version
+```
+
+----------------------------------------
+
+TITLE: Zilliqa Public API Endpoints Reference
+DESCRIPTION: This section outlines the various API categories and the methods available under each, providing a structured reference for developers interacting with the Zilliqa blockchain via its public endpoints.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/CreateTransaction
+
+LANGUAGE: APIDOC
+CODE:
+```
+APIs:
+  admin:
+    - admin_blockRange
+    - admin_clearMempool
+    - admin_consensusInfo
+    - admin_forceView
+    - admin_generateCheckpoint
+    - admin_getLeaders
+    - admin_getPeers
+    - admin_votesReceived
+  debug:
+    - debug_traceTransaction
+    - debug_traceBlockByNumber
+  erigon:
+    - erigon_getHeaderByNumber
+  eth:
+    - eth_accounts
+    - eth_blockNumber
+    - eth_call
+    - eth_chainId
+    - eth_estimateGas
+    - eth_gasPrice
+    - eth_getBalance
+    - eth_getBlockByHash
+    - eth_getBlockByNumber
+    - eth_getBlockTransactionCountByHash
+    - eth_getBlockTransactionCountByNumber
+    - eth_getCode
+    - eth_getFilterChanges
+    - eth_getFilterLogs
+    - eth_getLogs
+    - eth_getStorageAt
+    - eth_getTransactionByBlockHashAndIndex
+    - eth_getTransactionByBlockNumberAndIndex
+    - eth_getTransactionByHash
+    - eth_getTransactionCount
+    - eth_getTransactionReceipt
+    - eth_getUncleByBlockHashAndIndex
+    - eth_getUncleCountByBlockHash
+    - eth_getUncleCountByBlockNumber
+    - eth_mining
+    - eth_newPendingTransactionFilter
+    - eth_newFilter
+    - eth_protocolVersion
+    - eth_sendRawTransaction
+    - eth_uninstallFilter
+  net:
+    - net_listening
+    - net_peerCount
+    - net_version
+  ots:
+    - ots_getApiLevel
+    - ots_getBlockDetails
+    - ots_getBlockDetailsByHash
+  trace:
+    - trace_block
+    - trace_filter
+    - trace_replayTransaction
+    - trace_transaction
+  txpool:
+    - txpool_content
+    - txpool_contentFrom
+    - txpool_inspect
+    - txpool_status
+  web3:
+    - (No methods listed)
+```
+
+----------------------------------------
+
+TITLE: Example JSON Response for eth_getFilterLogs
+DESCRIPTION: Illustrates the typical JSON structure and content returned by a successful `eth_getFilterLogs` API call, showing details of a retrieved log entry.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/eth/eth_getFilterLogs
+
+LANGUAGE: JSON
+CODE:
+```
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": [
+    {
+      "removed": false,
+      "logIndex": "0x0",
+      "transactionIndex": "0x0",
+      "transactionHash": "0x78d856462ada...",
+      "blockHash": "0x1234...",
+      "blockNumber": "0x1b4",
+      "address": "0xd5a37dc5c9a396a03dd152c39319f4443f79c6da",
+      "data": "0x0000000000000000000000000000000000000000000000000000000000000001",
+      "topics": ["0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"]
+    }
+  ]
+}
+```
+
+----------------------------------------
+
+TITLE: Example JSON Response for Zilliqa TxBlockListing API
+DESCRIPTION: Illustrates the structure of a successful response from the `TxBlockListing` API method, showing an array of transaction blocks with their block numbers and hashes, along with the total number of pages.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/TxBlockListing
+
+LANGUAGE: json
+CODE:
+```
+{
+  "id": "1",
+  "jsonrpc": "2.0",
+  "result": {
+    "data": [
+      {
+        "BlockNum": 589790,
+        "Hash": "E0743F8E0CAEFB4DD6B15D9A5B71975CD1CFFC453EC57F85541E224A9C60B4E8"
+      },
+      {
+        "BlockNum": 589789,
+        "Hash": "01a61cc22ab5ae1d77cd6da65385771dca408fbea90688c845bdd2ffe1797bb7"
+      },
+      {
+        "BlockNum": 589788,
+        "Hash": "be825dd949caf36d6a20372fdc88b1912dc1515d1ecf8624e6cd928b33c9a705"
+      },
+      {
+        "BlockNum": 589787,
+        "Hash": "4d097b9e283dd2bfeb78f2bb6ef9fe960b45b96e027f999316cea4c3d8f70ea9"
+      },
+      {
+        "BlockNum": 589786,
+        "Hash": "1714472999972237b887db32cc6e27c44dc4ceecdc310ae3b18f44673e860d87"
+      },
+      {
+        "BlockNum": 589785,
+        "Hash": "a40cb278801b22609245e240c1386894829d36ec2c081cf33d6b0f11cb6d6c70"
+      },
+      {
+        "BlockNum": 589784,
+        "Hash": "e6a66682866dec2b44124b0daa419696cca396bc04ab2d342a65b43db5cbd24e"
+      },
+      {
+        "BlockNum": 589783,
+        "Hash": "a7be65da85167c2cd0b044698a3e7dc74e2478b367f87d85536d4c108d9fde96"
+      },
+      {
+        "BlockNum": 589782,
+        "Hash": "060b06d40fcca1cedb9099031e1cb37927700bc263f14a3b05481f1f9b211b7c"
+      },
+      {
+        "BlockNum": 589781,
+        "Hash": "db190feb1f2099875ca2dc9734efbeb5b1cef676f85d7fa9a4b84d64a9e463b6"
+      }
+    ],
+    "maxPages": 58980
+  }
+}
+```
+
+----------------------------------------
+
+TITLE: ots_getApiLevel API Method
+DESCRIPTION: Documents the 'ots_getApiLevel' API method, used to retrieve the current API level.
+SOURCE: https://dev.zilliqa.com/zilliqa2/nodes/node
+
+LANGUAGE: APIDOC
+CODE:
+```
+ots_getApiLevel
+```
+
+----------------------------------------
+
+TITLE: GetTotalCoinSupply API Request Examples
+DESCRIPTION: Demonstrates how to call the `GetTotalCoinSupply` method using various programming languages and cURL to retrieve the total coin supply of the Zilliqa network.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetTotalCoinSupply
+
+LANGUAGE: cURL
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetTotalCoinSupply",
+    "params": [""]
+}' -H "Content-Type: application/json" -X POST "https://api.zilliqa.com/"
+```
+
+LANGUAGE: JavaScript
+CODE:
+```
+const totalCoinSupply = await zilliqa.blockchain.getTotalCoinSupply();
+console.log(totalCoinSupply);
+```
+
+LANGUAGE: Java
+CODE:
+```
+public class App {
+    public static void main(String[] args) throws IOException {
+        HttpProvider client = new HttpProvider("https://api.zilliqa.com/");
+        Rep<String> totalCoinSupply = client.getTotalCoinSupply();
+        System.out.println(new Gson().toJson(totalCoinSupply));
+    }
+}
+```
+
+LANGUAGE: Python
+CODE:
+```
+from pyzil.zilliqa import chain
+from pyzil.zilliqa.api import ZilliqaAPI
+```
+
+LANGUAGE: Go
+CODE:
+```
+func GetTotalCoinSupply() {
+    provider := NewProvider("https://api.zilliqa.com/")
+    response := provider.GetTotalCoinSupply()
+    result, _ := json.Marshal(response)
+    fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: JSON Response for GetShardingStructure API
+DESCRIPTION: Shows an example JSON response returned by the GetShardingStructure API call, indicating a successful request with a placeholder result. Note that this API is deprecated.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetShardingStructure
+
+LANGUAGE: JSON
+CODE:
+```
+{ "id": "1", "jsonrpc": "2.0", "result": { "NumPeers": [0] } }
+```
+
+----------------------------------------
+
+TITLE: GetTxBlockVerbose API Method
+DESCRIPTION: Documents the 'GetTxBlockVerbose' API method, used to get detailed information for a transaction block.
+SOURCE: https://dev.zilliqa.com/zilliqa2/nodes/node
+
+LANGUAGE: APIDOC
+CODE:
+```
+GetTxBlockVerbose
+```
+
+----------------------------------------
+
+TITLE: trace_transaction API Method
+DESCRIPTION: Documents the 'trace_transaction' API method, used to get the trace of a specific transaction.
+SOURCE: https://dev.zilliqa.com/zilliqa2/nodes/node
+
+LANGUAGE: APIDOC
+CODE:
+```
+trace_transaction
+```
+
+----------------------------------------
+
+TITLE: Example JSON-RPC Response for GetPrevDSDifficulty
+DESCRIPTION: An example of the expected JSON-RPC response structure when calling the GetPrevDSDifficulty API, showing the 'id', 'jsonrpc' version, and the 'result' (the difficulty value).
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis/api/zilliqa/GetPrevDSDifficulty
+
+LANGUAGE: json
+CODE:
+```
+{
+  "id": "1",
+  "jsonrpc": "2.0",
+  "result": 149
+}
+```
+
+----------------------------------------
+
+TITLE: API Reference: trace
+DESCRIPTION: Documentation for the trace API methods, specifically for tracing block execution.
+SOURCE: https://dev.zilliqa.com/zilliqa2/endpoints
+
+LANGUAGE: APIDOC
+CODE:
+```
+trace:
+  - trace_block
+```
+
+----------------------------------------
+
+TITLE: Zilliqa RPC API Endpoints Reference
+DESCRIPTION: A comprehensive reference of all Zilliqa RPC API methods, organized by their respective modules. This includes administrative functions, debugging tools, Ethereum-compatible APIs, network information, and Zilliqa-specific blockchain interactions.
+SOURCE: https://dev.zilliqa.com/zilliqa2/api/apis
+
+LANGUAGE: APIDOC
+CODE:
+```
+admin:
+  - admin_blockRange
+  - admin_clearMempool
+  - admin_consensusInfo
+  - admin_forceView
+  - admin_generateCheckpoint
+  - admin_getLeaders
+  - admin_getPeers
+  - admin_votesReceived
+debug:
+  - debug_traceTransaction
+  - debug_traceBlockByNumber
+erigon:
+  - erigon_getHeaderByNumber
+eth:
+  - eth_accounts
+  - eth_blockNumber
+  - eth_call
+  - eth_chainId
+  - eth_estimateGas
+  - eth_gasPrice
+  - eth_getBalance
+  - eth_getBlockByHash
+  - eth_getBlockByNumber
+  - eth_getBlockTransactionCountByHash
+  - eth_getBlockTransactionCountByNumber
+  - eth_getCode
+  - eth_getFilterChanges
+  - eth_getFilterLogs
+  - eth_getLogs
+  - eth_getStorageAt
+  - eth_getTransactionByBlockHashAndIndex
+  - eth_getTransactionByBlockNumberAndIndex
+  - eth_getTransactionByHash
+  - eth_getTransactionCount
+  - eth_getTransactionReceipt
+  - eth_getUncleByBlockHashAndIndex
+  - eth_getUncleCountByBlockHash
+  - eth_getUncleCountByBlockNumber
+  - eth_mining
+  - eth_newPendingTransactionFilter
+  - eth_newFilter
+  - eth_protocolVersion
+  - eth_sendRawTransaction
+  - eth_uninstallFilter
+  - net_listening
+  - net_peerCount
+net:
+  - net_listening
+  - net_peerCount
+  - net_version
+ots:
+  - ots_getApiLevel
+  - ots_getBlockDetails
+  - ots_getBlockDetailsByHash
+trace:
+  - trace_block
+  - trace_filter
+  - trace_replayTransaction
+  - trace_transaction
+txpool:
+  - txpool_content
+  - txpool_contentFrom
+  - txpool_inspect
+  - txpool_status
+web3:
+  - web3_ClientVersion
+  - web3_sha3
+zilliqa:
+  - CreateTransaction
+  - DSBlockListing
+  - GetBalance
+  - GetBlockchainInfo
+```
