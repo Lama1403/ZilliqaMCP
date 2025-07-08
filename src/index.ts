@@ -472,6 +472,21 @@ async function main() {
                       },
                     },
                   },
+                  {
+                    name: "get_zilliqa_network_info",
+                    description: "Get Zilliqa network information including RPC URLs, chain IDs, explorer links, and faucet information",
+                    inputSchema: {
+                      type: "object",
+                      properties: {
+                        network: {
+                          type: "string",
+                          description: "The network to get information for",
+                          enum: ["devnet", "testnet", "mainnet"],
+                        },
+                      },
+                      required: ["network"],
+                    },
+                  },
                 ],
               };
             } else if (request.method === "tools/call") {
@@ -618,6 +633,66 @@ async function main() {
                   break;
                 }
                 
+                case "get_zilliqa_network_info": {
+                  const { network } = args as {
+                    network: "devnet" | "testnet" | "mainnet";
+                  };
+                  
+                  const networkInfo = {
+                    devnet: {
+                      name: "Devnet (Development Network)",
+                      chainId: "33103",
+                      rpcUrl: "https://api.zq2-devnet.zilliqa.com",
+                      explorer: "https://explorer.zq2-devnet.zilliqa.com",
+                      faucet: "https://faucet.zq2-devnet.zilliqa.com",
+                      purpose: "Development and testing environment with latest features",
+                      reset: "May be reset periodically",
+                      description: "Use for experimental features and early development"
+                    },
+                    testnet: {
+                      name: "Testnet (Test Network)",
+                      chainId: "33101",
+                      rpcUrl: "https://api.zq2-testnet.zilliqa.com",
+                      explorer: "https://explorer.zq2-testnet.zilliqa.com",
+                      faucet: "https://faucet.zq2-testnet.zilliqa.com",
+                      purpose: "Stable testing environment for application testing",
+                      reset: "Rarely reset, stable for testing",
+                      description: "Use for application testing and integration"
+                    },
+                    mainnet: {
+                      name: "Mainnet (Production Network)",
+                      chainId: "32769",
+                      rpcUrl: "https://api.zilliqa.com",
+                      explorer: "https://explorer.zilliqa.com",
+                      faucet: "N/A (Real ZIL required)",
+                      purpose: "Production environment with real value transactions",
+                      reset: "Never reset, production environment",
+                      description: "Use for production deployments only"
+                    }
+                  };
+                  
+                  const info = networkInfo[network];
+                  
+                  const responseText = `**${info.name}**\n\n` +
+                    `**Chain ID:** ${info.chainId}\n` +
+                    `**RPC URL:** ${info.rpcUrl}\n` +
+                    `**Explorer:** ${info.explorer}\n` +
+                    `**Faucet:** ${info.faucet}\n` +
+                    `**Purpose:** ${info.purpose}\n` +
+                    `**Reset Policy:** ${info.reset}\n` +
+                    `**Usage:** ${info.description}\n`;
+                  
+                  response = {
+                    content: [
+                      {
+                        type: "text",
+                        text: responseText,
+                      },
+                    ],
+                  };
+                  break;
+                }
+                
                 default:
                   throw new Error(`Unknown tool: ${name}`);
               }
@@ -653,6 +728,7 @@ async function main() {
                 <li><strong>search_zilliqa_docs</strong> - Search through Zilliqa documentation</li>
                 <li><strong>get_zilliqa_api_example</strong> - Get specific API examples</li>
                 <li><strong>list_zilliqa_apis</strong> - List all available APIs</li>
+                <li><strong>get_zilliqa_network_info</strong> - Get network configuration and URLs</li>
               </ul>
               <p>Send POST requests to this endpoint with MCP protocol messages.</p>
             </body>
