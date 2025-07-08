@@ -1,20 +1,37 @@
 {
   "name": "zilliqa-mcp-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "A Model Context Protocol (MCP) server providing access to Zilliqa blockchain documentation and API examples",
+  "main": "build/index.js",
+  "bin": {
+    "zilliqa-mcp-server": "build/cli.js"
+  },
   "scripts": {
     "build": "tsc",
-    "start": "NODE_ENV=production node build/index.js",
-    "start:local": "node build/index.js",
+    "prepublishOnly": "npm run build",
+    "start": "node build/index.js",
     "dev": "tsx src/index.ts",
-    "dev:http": "MCP_TRANSPORT=http tsx src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "zilliqa",
+    "blockchain",
+    "documentation",
+    "api"
+  ],
+  "author": "Lama1403",
+  "license": "MIT",
+  "homepage": "https://github.com/Lama1403/ZilliqaMCP",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lama1403/ZilliqaMCP.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Lama1403/ZilliqaMCP/issues"
+  },
   "type": "commonjs",
-  "description": "",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.15.0"
   },
