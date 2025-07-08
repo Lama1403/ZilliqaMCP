@@ -1,0 +1,1199 @@
+TITLE: Zilliqa ZQ2 Smart Contract - Get Owner
+DESCRIPTION: This Solidity code defines a function to retrieve the current owner of the contract.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_getTransactionByHash.doc.md#_snippet_7
+
+LANGUAGE: solidity
+CODE:
+```
+function getOwner() public view returns (address) {
+        return owner;
+    }
+```
+
+----------------------------------------
+
+TITLE: Top Up Stake for ZQ2 Validators
+DESCRIPTION: Adds additional stake to existing validators. Requires specifying the amount to top up in millions and supports interactive node selection.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/docs/deployer.md#_snippet_6
+
+LANGUAGE: bash
+CODE:
+```
+z2 deployer deposit-top-up --amount <AMOUNT> [OPTIONS] <CONFIG_FILE>
+```
+
+LANGUAGE: bash
+CODE:
+```
+z2 deployer deposit-top-up --amount 10 zq2-prototestnet.yaml
+```
+
+LANGUAGE: APIDOC
+CODE:
+```
+Options:
+  --select: Interactively select nodes
+  --amount <AMOUNT>: Amount in millions (required)
+```
+
+----------------------------------------
+
+TITLE: API Reference: eth_getTransactionByHash
+DESCRIPTION: Details the `eth_getTransactionByHash` JSON-RPC method, including its parameters and return values.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_getTransactionByHash.doc.md#_snippet_0
+
+LANGUAGE: APIDOC
+CODE:
+```
+eth_getTransactionByHash:
+  Description: Retrieve a transaction by its hash, or return null.
+  Parameters:
+    hash:
+      Type: string
+      Description: A transaction hash
+  Returns:
+    Type: object | null
+    Description: A transaction, or null if no such transaction is known to this node.
+```
+
+----------------------------------------
+
+TITLE: Zilliqa ZQ2 Smart Contract - Transfer Ownership
+DESCRIPTION: This Solidity code defines a function to transfer the ownership of the contract. Only the current owner can call this function.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_getTransactionByHash.doc.md#_snippet_6
+
+LANGUAGE: solidity
+CODE:
+```
+function transferOwnership(address newOwner) public onlyOwner {
+        owner = newOwner;
+    }
+```
+
+----------------------------------------
+
+TITLE: Deploy Scilla Contract
+DESCRIPTION: Demonstrates how to deploy a Scilla smart contract, with examples for contracts without and with initial parameters.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/evm_scilla_js_tests/README.md#_snippet_13
+
+LANGUAGE: typescript
+CODE:
+```
+import {parallelizer} from "../../helpers";
+
+let contract: ScillaContract = await parallelizer.deployScillaContract("SetGet");
+let contract: ScillaContract = await parallelizer.deployScillaContract("HelloWorld", "Hello World"); // Contract with initial parameters.
+```
+
+----------------------------------------
+
+TITLE: Zilliqa ZQ2 Smart Contract - Kill Contract
+DESCRIPTION: This Solidity code defines a function to destroy the contract. Only the owner can call this function.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_getTransactionByHash.doc.md#_snippet_8
+
+LANGUAGE: solidity
+CODE:
+```
+function kill() public onlyOwner {
+        selfdestruct(msg.sender);
+    }
+```
+
+----------------------------------------
+
+TITLE: Deposit Stake for ZQ2 Internal Validators
+DESCRIPTION: Executes the deposit of stake for all internal validators as specified in the configuration file. Allows interactive selection of nodes for the operation.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/docs/deployer.md#_snippet_5
+
+LANGUAGE: bash
+CODE:
+```
+z2 deployer deposit [OPTIONS] <CONFIG_FILE>
+```
+
+LANGUAGE: bash
+CODE:
+```
+z2 deployer deposit zq2-prototestnet.yaml
+```
+
+LANGUAGE: APIDOC
+CODE:
+```
+Options:
+  --select: Interactively select nodes
+```
+
+----------------------------------------
+
+TITLE: Zilliqa ZQ2 Smart Contract - Constructor
+DESCRIPTION: This Solidity code defines the constructor for a Zilliqa smart contract. It is executed only once when the contract is deployed.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_getTransactionByHash.doc.md#_snippet_5
+
+LANGUAGE: solidity
+CODE:
+```
+constructor() {
+        owner = msg.sender;
+    }
+```
+
+----------------------------------------
+
+TITLE: Hardhat Zilliqa Balance Task
+DESCRIPTION: Hardhat task to retrieve the Zilliqa balance associated with a given private key.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/evm_scilla_js_tests/README.md#_snippet_20
+
+LANGUAGE: bash
+CODE:
+```
+npx hardhat zilBalance db11cfa086b92497c8ed5a4cc6edb3a5bfe3a640c43ffb9fc6aa0873c56f2ee3
+```
+
+----------------------------------------
+
+TITLE: Deposit funds for stake management with z2 deployer
+DESCRIPTION: Initiate a deposit of funds for stake management within the Zilliqa network. This command is part of the staking workflow to increase a validator's or delegator's stake.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/docs/deployer.md#_snippet_20
+
+LANGUAGE: APIDOC
+CODE:
+```
+z2 deployer deposit command
+Purpose
+```
+
+----------------------------------------
+
+TITLE: GetCurrentMiniEpoch RPC Request Parameters
+DESCRIPTION: Details the required parameters for the `GetCurrentMiniEpoch` RPC method request.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/zilliqa/getcurrentminiepoch.doc.md#_snippet_6
+
+LANGUAGE: APIDOC
+CODE:
+```
+id: string (Required) - "1"
+jsonrpc: string (Required) - "2.0"
+method: string (Required) - "GetCurrentMiniEpoch"
+params: string (Required) - Empty string ""
+```
+
+----------------------------------------
+
+TITLE: Retrieve Deposit Commands for ZQ2 Validators
+DESCRIPTION: Outputs the necessary commands to deposit stake for all validators defined in the configuration file. This command helps in preparing staking operations.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/docs/deployer.md#_snippet_4
+
+LANGUAGE: bash
+CODE:
+```
+z2 deployer get-deposit-commands [OPTIONS] <CONFIG_FILE>
+```
+
+LANGUAGE: bash
+CODE:
+```
+z2 deployer get-deposit-commands zq2-prototestnet.yaml
+```
+
+LANGUAGE: APIDOC
+CODE:
+```
+Options:
+  --select: Interactively select nodes
+```
+
+----------------------------------------
+
+TITLE: z2 deposit Command: Promote Node as Validator
+DESCRIPTION: Reference for the `z2 deposit` command, used to promote a node to validator status via a ZIL deposit.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/docs/README.md#_snippet_4
+
+LANGUAGE: APIDOC
+CODE:
+```
+z2 deposit
+  Purpose: Promote a node as validator via $ZIL deposit.
+```
+
+----------------------------------------
+
+TITLE: API Documentation for custom_rules Input
+DESCRIPTION: Custome security rules
+SOURCE: https://github.com/zilliqa/zq2/blob/main/infra/tf/modules/google-cloud-armor/README.md#_snippet_4
+
+LANGUAGE: APIDOC
+CODE:
+```
+custom_rules: map(object({
+    action          = string
+    priority        = number
+    description     = optional(string)
+    preview         = optional(bool, false)
+    expression      = string
+    redirect_type   = optional(string, null)
+    redirect_target = optional(string, null)
+    rate_limit_options = optional(object({
+      enforce_on_key      = optional(string)
+      enforce_on_key_name = optional(string)
+      enforce_on_key_configs = optional(list(object({
+        enforce_on_key_name = optional(string)
+        enforce_on_key_type = optional(string)
+      })))
+      exceed_action                        = optional(string)
+      rate_limit_http_request_count        = optional(number)
+      rate_limit_http_request_interval_sec = optional(number)
+      ban_duration_sec                     = optional(number)
+      ban_http_request_count               = optional(number)
+      ban_http_request_interval_sec        = optional(number)
+      }),
+    {})
+    header_action = optional(list(object({
+      header_name  = optional(string)
+      header_value = optional(string)
+    })), [])
+
+    preconfigured_waf_config_exclusion = optional(object({
+      target_rule_set = string
+      target_rule_ids = optional(list(string), [])
+      request_header = optional(list(object({
+        operator = string
+        value    = optional(string)
+      })))
+      request_cookie = optional(list(object({
+        operator = string
+        value    = optional(string)
+      })))
+      request_uri = optional(list(object({
+        operator = string
+        value    = optional(string)
+      })))
+      request_query_param = optional(list(object({
+        operator = string
+        value    = optional(string)
+      })))
+    }), { target_rule_set = null }) # Obsolete. Use preconfigured_waf_config_exclusions
+
+    preconfigured_waf_config_exclusions = optional(map(object({
+      target_rule_set = string
+      target_rule_ids = optional(list(string), [])
+      request_header = optional(list(object({
+        operator = string
+        value    = optional(string)
+      })))
+      request_cookie = optional(list(object({
+        operator = string
+        value    = optional(string)
+      })))
+      request_uri = optional(list(object({
+        operator = string
+        value    = optional(string)
+      })))
+      request_query_param = optional(list(object({
+        operator = string
+        value    = optional(string)
+      })))
+    })), null)
+
+  }))
+```
+
+----------------------------------------
+
+TITLE: eth_chainId JSON-RPC Request Parameters
+DESCRIPTION: Defines the required and optional parameters for the `eth_chainId` JSON-RPC method.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_chainId.doc.md#_snippet_2
+
+LANGUAGE: APIDOC
+CODE:
+```
+eth_chainId Method Parameters:
+  - id: string (Required) - "1"
+  - jsonrpc: string (Required) - "2.0"
+  - method: string (Required) - "eth_chainId"
+  - params: empty (Optional) - `[]` if present
+```
+
+----------------------------------------
+
+TITLE: Show network stake information with z2 deployer
+DESCRIPTION: This command provides an overview of the current network stake and projected future stake information. It helps in monitoring the staking health and distribution across the Zilliqa network.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/docs/deployer.md#_snippet_9
+
+LANGUAGE: APIDOC
+CODE:
+```
+z2 deployer stakers command
+Purpose: Show network stake and future stake information.
+Usage: z2 deployer stakers <CONFIG_FILE>
+Arguments:
+  <CONFIG_FILE>: Path to the configuration file.
+```
+
+LANGUAGE: bash
+CODE:
+```
+z2 deployer stakers zq2-prototestnet.yaml
+```
+
+----------------------------------------
+
+TITLE: Partially Implemented Zilliqa ZQ2 APIs
+DESCRIPTION: A list of currently undocumented Zilliqa ZQ2 APIs that are partially implemented within the project.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/README.md#_snippet_12
+
+LANGUAGE: APIDOC
+CODE:
+```
+eth_getBlockByHash
+eth_getBlockByNumber
+net_peerCount
+```
+
+----------------------------------------
+
+TITLE: Example JSON Response for eth_mining
+DESCRIPTION: Illustrates the expected JSON-RPC response from the `eth_mining` endpoint, indicating that the node is not mining.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_mining.doc.md#_snippet_1
+
+LANGUAGE: json
+CODE:
+```
+{"jsonrpc":"2.0","result":false,"id":"1"}
+```
+
+----------------------------------------
+
+TITLE: project_id
+DESCRIPTION: The project in which the resource belongs.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/infra/tf/modules/google-cloud-armor/README.md#_snippet_14
+
+LANGUAGE: APIDOC
+CODE:
+```
+string
+```
+
+----------------------------------------
+
+TITLE: GetCurrentMiniEpoch RPC Response Structure
+DESCRIPTION: Defines the expected JSON structure returned by the `GetCurrentMiniEpoch` RPC method.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/zilliqa/getcurrentminiepoch.doc.md#_snippet_5
+
+LANGUAGE: APIDOC
+CODE:
+```
+{
+  "id": "1",
+  "jsonrpc": "2.0",
+  "result": "589793"
+}
+```
+
+----------------------------------------
+
+TITLE: name
+DESCRIPTION: Name of the security policy.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/infra/tf/modules/google-cloud-armor/README.md#_snippet_12
+
+LANGUAGE: APIDOC
+CODE:
+```
+string
+```
+
+----------------------------------------
+
+TITLE: Fund Hardhat Accounts from ETH Addresses
+DESCRIPTION: This command allows funding accounts when the initial funds are already in Ethereum-style addresses. Users can specify their desired network for this operation.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/evm_scilla_js_tests/README.md#_snippet_24
+
+LANGUAGE: bash
+CODE:
+```
+npx hardhat run scripts/FundAccountsFromEth.ts --network your_network
+```
+
+----------------------------------------
+
+TITLE: Retrieve Recent Transactions in Node.js
+DESCRIPTION: Shows how to use the Zilliqa JavaScript SDK to fetch recent transactions from the blockchain. It logs the result to the console.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/zilliqa/getrecenttransactions.doc.md#_snippet_1
+
+LANGUAGE: NodeJs
+CODE:
+```
+const recentTransactions = await zilliqa.blockchain.getRecentTransactions();
+console.log(recentTransactions.result);
+```
+
+----------------------------------------
+
+TITLE: name variable
+DESCRIPTION: Name of the security policy.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/infra/tf/modules/google-cloud-armor/README.md#_snippet_46
+
+LANGUAGE: APIDOC
+CODE:
+```
+Type: string
+Default: n/a
+Required: yes
+```
+
+----------------------------------------
+
+TITLE: eth_getTransactionByBlockHashAndIndex API Reference
+DESCRIPTION: Detailed API documentation for the `eth_getTransactionByBlockHashAndIndex` method, including parameters and return values.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_getTransactionByBlockHashAndIndex.doc.md#_snippet_0
+
+LANGUAGE: APIDOC
+CODE:
+```
+Method: eth_getTransactionByBlockHashAndIndex
+Description: Returns a transaction by index into a block, given by a block hash.
+
+Parameters:
+- blockHash: string (e.g., "0x50b3b76c3a4f19ac20e498744d8e0ff9a110b9130acb3ba786c80c26738ee9ae") - The hash of the block.
+- index: string (hex string, e.g., "0x0") - A zero-based index of the transaction within the block.
+
+Returns:
+- transaction: object | null - A transaction object, or null if no such transaction is known to this node. (Details of the transaction object are provided by macro_returned_transaction)
+```
+
+----------------------------------------
+
+TITLE: eth_mining JSON-RPC Method Parameters
+DESCRIPTION: Details the required parameters for the `eth_mining` JSON-RPC method, including their types and descriptions.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_mining.doc.md#_snippet_2
+
+LANGUAGE: APIDOC
+CODE:
+```
+Method: eth_mining
+Description: Returns if the node is mining. zq2 nodes always return false.
+Request Parameters:
+- id (string, Required): "1"
+- jsonrpc (string, Required): "2.0"
+- method (string, Required): "eth_mining"
+- params (array, Required): can be anything
+```
+
+----------------------------------------
+
+TITLE: Terraform Output: policy
+DESCRIPTION: The security policy created by the module.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/infra/tf/modules/google-cloud-armor/README.md#_snippet_55
+
+LANGUAGE: APIDOC
+CODE:
+```
+policy:
+  Description: Security policy created
+```
+
+----------------------------------------
+
+TITLE: Deposit ZIL for validator staking using z2 deposit command
+DESCRIPTION: This command initiates the deposit of ZIL tokens to promote a node as a validator. It requires various parameters including chain details, private and public keys, peer ID, deposit authorization signature, amount, and reward/signing addresses. The private key must belong to a wallet with at least 10 million ZIL.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/docs/staking.md#_snippet_0
+
+LANGUAGE: bash
+CODE:
+```
+z2 deposit \
+  --chain <CHAIN_NAME> \
+  --private-key <PRIVATE_KEY> \
+  --public-key <PUBLIC_KEY> \
+  --peer-id <PEER_ID> \
+  --deposit-auth-signature <DEPOSIT_AUTH_SIGNATURE> \
+  --amount <AMOUNT> \
+  --reward-address <REWARD_ADDRESS> \
+  --signing-address <SIGNING_ADDRESS>
+```
+
+----------------------------------------
+
+TITLE: eth_sendRawTransaction API Arguments
+DESCRIPTION: Defines the required parameters for the `eth_sendRawTransaction` API method, including their types and descriptions.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_sendRawTransaction.doc.md#_snippet_2
+
+LANGUAGE: APIDOC
+CODE:
+```
+eth_sendRawTransaction Parameters:
+  id: string (Required) - "1"
+  jsonrpc: string (Required) - "2.0"
+  method: string (Required) - "eth_sendRawTransaction"
+  params: array (Required) - [ data ]
+```
+
+----------------------------------------
+
+TITLE: Zilliqa ZQ2 Smart Contract - Fallback Function
+DESCRIPTION: This Solidity code defines the fallback function for a Zilliqa smart contract. It handles unexpected calls and reverts the transaction if no other function matches.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_getTransactionByHash.doc.md#_snippet_3
+
+LANGUAGE: solidity
+CODE:
+```
+function () payable {
+        revert();
+    }
+```
+
+----------------------------------------
+
+TITLE: z2 deposit-top-up Command Parameters Reference
+DESCRIPTION: This section provides a detailed reference for the parameters used with the `z2 deposit-top-up` command. It outlines each parameter's purpose, expected format, and possible values, aiding in correct command construction.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/docs/staking.md#_snippet_4
+
+LANGUAGE: APIDOC
+CODE:
+```
+--chain <CHAIN_NAME>: The name of the chain. Possible values are zq2-devnet, zq2-prototestnet, zq2-protomainnet, zq2-testnet, zq2-mainnet.
+* --private-key <PRIVATE_KEY_OF_WALLET>: The private key of the wallet.
+* --public-key <BLS_PUBLIC_KEY>: The BLS public key of the validator node.
+* --amount <AMOUNT_IN_MILLION_OF_ZIL>: The amount in millions of ZILs to top up.
+```
+
+----------------------------------------
+
+TITLE: Execute ZIL Deposit via z2 CLI
+DESCRIPTION: This command facilitates depositing ZIL into the Zilliqa zq2 network. It requires comprehensive parameters such as chain, peer ID, private key, reward address, signing address, amount, public key, and a deposit authorization signature to ensure a secure and valid transaction.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/docs/staking.md#_snippet_2
+
+LANGUAGE: bash
+CODE:
+```
+  z2 deposit --chain zq2-prototestnet \
+  --peer-id  12D3KooWGu8PBoj6vMPafnhA2P7sLumSV1NhQJZ2W2AGiBgc5ATW \
+  --private-key 96252e38af375be21d9eb30a6b88abc3836acecaeb2240731fb42e0299e14419 \
+  --reward-address 0xe29a3e99a6997B1571DA24d6517e7b3acaFB5d9e \
+  --signing-address 0x3946f9872247af2eb4fe44c81c463e801925b8d4 \
+  --amount 10 \
+  --public-key 825124961d51c99816848875fa505b75f2e62e69937fe9bfa5fa97711845abd667f05bdc3756f7dba6b7e9e0467a3804 \
+  --deposit-auth-signature  b4770471f1b6b798b3a5cf19b6f574724777f2fbf7b7f520e75fc8461cafcfd84114316fe2aeaf35b52b9ca519310f8c0bf5cd941426e4a78cc7e10c6da80f245a9ddadc42de3f8a35db42d633b2b03847b33883f702eb13c332988d34d68d90
+```
+
+----------------------------------------
+
+TITLE: Successful eth_newFilter Response
+DESCRIPTION: Example of a successful JSON response from the `eth_newFilter` method, returning the filter ID.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_newFilter.doc.md#_snippet_1
+
+LANGUAGE: json
+CODE:
+```
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": "0x1" 
+}
+```
+
+----------------------------------------
+
+TITLE: GetTxBlock RPC Method Arguments
+DESCRIPTION: Defines the required parameters for the `GetTxBlock` RPC method, including their types and descriptions.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/zilliqa/gettxblock.doc.md#_snippet_1
+
+LANGUAGE: APIDOC
+CODE:
+```
+GetTxBlock Parameters:
+- id (string, Required): "1"
+- jsonrpc (string, Required): "2.0"
+- method (string, Required): "GetTxBlock"
+- params (string, Required): Specified TX block number to return. Example: "1002353"
+```
+
+----------------------------------------
+
+TITLE: Hardhat Transfer Funds Task
+DESCRIPTION: Hardhat task to transfer funds between accounts using private keys, supporting both Zilliqa and Ethereum address types for the sender.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/evm_scilla_js_tests/README.md#_snippet_21
+
+LANGUAGE: bash
+CODE:
+```
+npx hardhat transfer --from d96e9eb5b782a80ea153c937fa83e5948485fbfc8b7e7c069d7b914dbc350aba --to cf671756a8238cbeb19bcb4d77fc9091e2fce1a3 --amount 1000000 --address-type eth
+npx hardhat transfer --from db11cfa086b92497c8ed5a4cc6edb3a5bfe3a640c43ffb9fc6aa0873c56f2ee3 --to 6e2cf2789c5b705e0990c05ca959b5001c70ba87 --amount 1 --from-address-type zil
+```
+
+----------------------------------------
+
+TITLE: Top Up ZIL Deposit for Staker via z2 CLI
+DESCRIPTION: This command allows a staker to add more ZIL to an existing deposit. It requires the target chain name, the private key of the associated wallet, the BLS public key of the validator node, and the specific amount in millions of ZILs to be topped up.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/docs/staking.md#_snippet_3
+
+LANGUAGE: bash
+CODE:
+```
+z2 deposit-top-up \
+  --chain <CHAIN_NAME>
+  --private-key <PRIVATE_KEY>
+  --public-key <PUBLIC_KEY>
+  --amount <AMOUNT>
+```
+
+LANGUAGE: bash
+CODE:
+```
+z2 deposit-top-up --chain zq2-prototestnet \
+  --private-key 96252e38af375be21d9eb30a6b88abc3836acecaeb2240731fb42e0299e14419 \
+  --public-key 825124961d51c99816848875fa505b75f2e62e69937fe9bfa5fa97711845abd667f05bdc3756f7dba6b7e9e0467a3804 \
+  --amount 10
+```
+
+----------------------------------------
+
+TITLE: Run Zilliqa Benchmarks with Cargo
+DESCRIPTION: Explains how to execute performance benchmarks for the Zilliqa project using `cargo bench`. It covers running specific benchmarks and generating flamegraphs for detailed performance profiling and bottleneck identification.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/README.md#_snippet_5
+
+LANGUAGE: bash
+CODE:
+```
+cargo bench --package zilliqa --bench it
+```
+
+LANGUAGE: bash
+CODE:
+```
+cargo bench --package zilliqa --bench it -- <benchmark-name>
+```
+
+LANGUAGE: bash
+CODE:
+```
+cargo bench --package zilliqa --bench it --profile-time <time in seconds>
+```
+
+----------------------------------------
+
+TITLE: GetSmartContractCode API Reference
+DESCRIPTION: Detailed API documentation for the GetSmartContractCode method, including parameters, their types, requirements, and descriptions.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/zilliqa/getsmartcontractcode.doc.md#_snippet_2
+
+LANGUAGE: APIDOC
+CODE:
+```
+Method: GetSmartContractCode
+  Description: Returns the Scilla or EVM code associated with a smart contract address.
+  Parameters:
+    id:
+      Type: string
+      Required: true
+      Description: "1"
+    jsonrpc:
+      Type: string
+      Required: true
+      Description: "2.0"
+    method:
+      Type: string
+      Required: true
+      Description: "GetSmartContractCode"
+    params:
+      Type: string
+      Required: true
+      Description: A smart contract address of 20 bytes. Example: "fe001824823b12b58708bf24edd94d8b5e1cfcf7". Also supports Bech32 address Example: "zil1lcqpsfyz8vfttpcghujwmk2d3d0pel8h3qptyu"
+```
+
+----------------------------------------
+
+TITLE: z2 unstake Command Parameters Reference
+DESCRIPTION: This section details the parameters required for the `z2 unstake` command. It provides information on each parameter, including its type, purpose, and acceptable values, essential for constructing valid unstake requests.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/docs/staking.md#_snippet_6
+
+LANGUAGE: APIDOC
+CODE:
+```
+--chain <CHAIN_NAME>: The name of the chain. Possible values are zq2-devnet, zq2-prototestnet, zq2-protomainnet, zq2-testnet, zq2-mainnet.
+* --private-key <PRIVATE_KEY_OF_WALLET>: The private key of the wallet.
+* --public-key <BLS_PUBLIC_KEY>: The BLS public key of the validator node.
+* --amount <AMOUNT_IN_MILLION_OF_ZIL>: The amount in millions of ZILs to unstake.
+```
+
+----------------------------------------
+
+TITLE: Example: Call eth_getTransactionByHash using cURL
+DESCRIPTION: Demonstrates how to call the `eth_getTransactionByHash` JSON-RPC method using a cURL command.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_getTransactionByHash.doc.md#_snippet_1
+
+LANGUAGE: sh
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "eth_getTransactionByHash",
+    "params": [ "0xf4818804242f4a1f5c8f9d255a51b80bd1e21c0047affffd5f480636ac2a9773"
+ ]}' -H "Content-Type: application/json" -X POST "{{ _api_url }}"
+```
+
+----------------------------------------
+
+TITLE: Hardhat Balances Task
+DESCRIPTION: Hardhat task to display account balances for both Zilliqa and Ethereum addresses configured in the project's Hardhat configuration.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/evm_scilla_js_tests/README.md#_snippet_19
+
+LANGUAGE: bash
+CODE:
+```
+npx hardhat balances --zil # returns balances of zil-addresses of accounts
+npx hardhat balances --eth # returns balances of eth-addresses of accounts
+npx hardhat balances  # same as --eth
+```
+
+----------------------------------------
+
+TITLE: Retrieve previous DS difficulty in Node.js
+DESCRIPTION: Shows how to call the `getPrevDSDifficulty` method using the Zilliqa JavaScript SDK and log the result.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/zilliqa/getprevdsdifficulty.doc.md#_snippet_1
+
+LANGUAGE: js
+CODE:
+```
+const prevDSDifficulty = await zilliqa.blockchain.getPrevDSDifficulty();
+console.log(prevDSDifficulty.result);
+```
+
+----------------------------------------
+
+TITLE: Run Zilliqa 2.0 Node with Private Key and Config
+DESCRIPTION: Demonstrates how to start a Zilliqa 2.0 node using `cargo run`, providing a private key and a configuration file. Multiple invocations show different private keys and config files, essential for setting up a multi-node network.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/README.md#_snippet_0
+
+LANGUAGE: bash
+CODE:
+```
+cargo run --bin zilliqa -- 65d7f4da9bedc8fb79cbf6722342960bbdfb9759bc0d9e3fb4989e831ccbc227 -c ./infra/config_docker.toml
+cargo run --bin zilliqa -- 62070b1a3b5b30236e43b4f1bfd617e1af7474635558314d46127a708b9d302e  -c ./infra/config_rpc_disabled.toml
+cargo run --bin zilliqa -- 56d7a450d7a450d75c6ba2706ef71da6ca80143ec4971add9c44d7d129a12fa7d3a364 -c ./infra/config_rpc_disabled.toml
+cargo run --bin zilliqa -- db670cbff28f4b15297d03fafdab8f5303d68b7591bd59e31eaef215dd0f246a -c ./infra/config_rpc_disabled.toml
+```
+
+----------------------------------------
+
+TITLE: description variable
+DESCRIPTION: An optional description of this security policy. Max size is 2048.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/infra/tf/modules/google-cloud-armor/README.md#_snippet_40
+
+LANGUAGE: APIDOC
+CODE:
+```
+Type: string
+Default: null
+Required: no
+```
+
+----------------------------------------
+
+TITLE: web3_clientVersion API Method Parameters
+DESCRIPTION: Details the required parameters for the `web3_clientVersion` JSON-RPC method, including their types and descriptions.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/web3/web3_clientVersion.doc.md#_snippet_2
+
+LANGUAGE: APIDOC
+CODE:
+```
+Method: web3_clientVersion
+Parameters:
+- id: string (Required) - "1"
+- jsonrpc: string (Required) - "2.0"
+- method: string (Required) - "web3_clientVersion"
+- params: array (Required) - Empty array `[]`
+```
+
+----------------------------------------
+
+TITLE: txpool_inspect RPC Method Parameters
+DESCRIPTION: Documentation for the parameters of the `txpool_inspect` RPC method. This method does not require any input parameters.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/txpool/txpool_inspect.doc.md#_snippet_2
+
+LANGUAGE: APIDOC
+CODE:
+```
+txpool_inspect RPC Method:
+  Parameters:
+    (No parameters)
+```
+
+----------------------------------------
+
+TITLE: Zilliqa ZQ2 Project Response Structure
+DESCRIPTION: This snippet shows the typical JSON response structure from the Zilliqa ZQ2 project, including details like block hash, block number, sender, gas, and transaction hash.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_getTransactionByHash.doc.md#_snippet_2
+
+LANGUAGE: sh
+CODE:
+```
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "blockHash": "0xbdf1dad26e2ab2e03b131f683e72d05d8088068e900d3fb8b0bbd2f64666967c",
+    "blockNumber": "0x235",
+    "from": "0xcb57ec3f064a16cadb36c7c712f4c9fa62b77415",
+    "gas": "0xbb278",
+    "gasPrice": "0x454b7a4e100",
+    "hash": "0xf4818804242f4a1f5c8f9d255a51b80bd1e21c0047affffd5f480636ac2a9773",
+    "input": "0x608060405234801561001057600080fd5b50604051610c38380380610c3883398101604081905261002f91610298565b8282600361003d8382610393565b50600461004a8282610393565b505050600061005d61007260201b60201c565b90506100698183610076565b50505050610478565b3390565b6001600160a01b0382166100a55760405163ec442f0560e01b8152600060048201526024015b60405180910390fd5b6100b1600083836100b5565b5050565b6001600160a01b0383166100e05780600260008282546100d59190610451565b909155506101529050565b6001600160a01b038316600090815260208190526040902054818110156101335760405163391434e360e21b81526001600160a01b0385166004820152602481018290526044810183905260640161009c565b6001600160a01b03841660009081526020819052604090209082900390555b6001600160a01b03821661016e5760028054829003905561018d565b6001600160a01b03821660009081526020819052604090208054820190555b816001600160a01b0316836001600160a01b03167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef836040516101d291815260200190565b60405180910390a3505050565b634e487b7160e01b600052604160045260246000fd5b600082601f83011261020657600080fd5b81516001600160401b0381111561021f5761021f6101df565b604051601f8201601f19908116603f011681016001600160401b038111828210171561024d5761024d6101df565b60405281815283820160200185101561026557600080fd5b60005b8281101561028457602081860181015183830182015201610268565b506000918101602001919091529392505050565b6000806000606084860312156102ad57600080fd5b83516001600160401b038111156102c357600080fd5b6102cf868287016101f5565b602086015190945090506001600160401b038111156102ed57600080fd5b6102f9868287016101f5565b92505060408401519050925092565b600181811c9082168061031e57607f821691505b60208210810361033e57634e487b7160e01b600052602260045260246000fd5b50919050565b601f82111561038e57806000526020600020601f840160051c8101602085101561036b5750805b601f840160051c820191505b8181101561038b5760008155600101610377565b50505b505050565b81516001600160401b038111156103ac576103ac6101df565b6103c0816103ba845461030a565b84610344565b6020601f8211600181146103f457600083156103dc5750848201515b600019600385901b1c1916600184901b17845561038b565b600084815260208120601f198516915b828110156104245787850151825560209485019460019092019101610404565b50848210156104425786840151600019600387901b60f8161c191681555b50505050600190811b01905550565b6001600160a01b03821661047257634e487b7160e01b600052601160045260246000fd5b92915050565b6107b1806104876000396000f3fe608060405234801561001057600080fd5b50600436106100a95760003560e01c8063313ce56711610071578063313ce5671461011c57806370a082311461012b57806385bb7d691461015457806395d89b411461015b578063a9059cbb14610163578063dd62ed3e1461017657600080fd5b806306fdde03146100ae578063095ea7b3146100cc57806318160ddd146100ef57806319ff1d211461010157806323b872dd14610109575b600080fd5b6100b66101af565b6040516100c391906105fa565b60405180910390f35b6100df6100da366004610664565b610241565b60405190151581526020016100c3565b6002545b6040519081526020016100c3565b6100b661025b565b6100df61011736600461068e565b61028c565b604051601281526020016100c3565b6100f36101393660046106cb565b6001600160a01b031660009081526020819052604090205490565b602a6100f3565b6100b66102b0565b6100df610171366004610664565b6102bf565b6100f36101843660046106ed565b6001600160a01b03918216600090815260016020908152604080832093909416825291909152205490565b6060600380546101be90610720565b80601f01602080910402602001604051908101604052809291908181526020018280546101ea90610720565b80156102375780601f1061020c57610100808354040283529160200191610237565b820191906000526020600020905b81548152906001019060200180831161021a57829003601f168201915b5050505050905090565b60003361024f8185856102cd565b60019150505b92915050565b60603361026a816103e86102df565b505060408051808201909152600681526548656c6c6f2160d01b602082015290565b60003361029a85828561031e565b6102a585858561039c565b506001949350505050565b6060600480546101be90610720565b60003361024f81858561039c565b6102da83838360016103fb565b505050565b6001600160a01b03821661030e57604051634b637e8f60e11b8152600060048201526024015b60405180910390fd5b61031a826000836104d0565b5050565b6001600160a01b038381166000908152600160209081526040808320938616835292905220546000198114610396578181101561038757604051637dc7a0d960e11b81526001600160a01b03841660048201526024810182905260448101839052606401610305565b610396848484840360006103fb565b50505050565b6001600160a01b0383166103c657604051634b637e8f60e11b815260006004820152602401610305565b6001600160a01b0382166103f05760405163ec442f0560e01b815260006004820152602401610305565b6102da8383836104d0565b6001600160a01b0384166104255760405163e602df0560e01b815260006004820152602401610305565b6001600160a01b03831661044f57604051634a1406b160e11b815260006004820152602401610305565b6001600160a01b03808516600090815260016020908152604080832093871683529290522082905580156103965782
+```
+
+----------------------------------------
+
+TITLE: Get Current Mini Epoch in Python
+DESCRIPTION: Shows how to get the current mini epoch using the pyzil library for Zilliqa.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/zilliqa/getcurrentminiepoch.doc.md#_snippet_3
+
+LANGUAGE: python
+CODE:
+```
+from pyzil.zilliqa import chain
+chain.set_active_chain(chain.MainNet)
+print(chain.active_chain.api.GetCurrentMiniEpoch())
+```
+
+----------------------------------------
+
+TITLE: Generate validator keys and signatures with convert-key tool
+DESCRIPTION: This command uses the `convert-key` tool to generate the BLS public key, deposit authorization signature, and peer ID required for validator registration. It takes the validator's secret key and chain ID as input. An optional `control_address` can be provided to override the default derived address, useful for delegation contracts.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/docs/staking.md#_snippet_1
+
+LANGUAGE: bash
+CODE:
+```
+echo '{"secret_key":"<PRIVATE_KEY_OF_VALIDATOR>", "chain_id": <CHAIN_ID>}' | cargo run --bin convert-key
+```
+
+LANGUAGE: bash
+CODE:
+```
+$ echo '{"secret_key":"96252e38af375be21d9eb30a6b88abc3836acecaeb2240731fb42e0299e14419", "chain_id": 33469}' | cargo run --bin convert-key
+```
+
+LANGUAGE: bash
+CODE:
+```
+$ echo '{"secret_key":"96252e38af375be21d9eb30a6b88abc3836acecaeb2240731fb42e0299e14419", "chain_id": 33469, "control_address": "0x3946f9872247af2eb4fe44c81c463e801925b8d4"}' | cargo run --bin convert-key
+```
+
+----------------------------------------
+
+TITLE: Get Current Mini Epoch in Node.js
+DESCRIPTION: Example of fetching the current mini epoch using the Zilliqa JavaScript SDK.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/zilliqa/getcurrentminiepoch.doc.md#_snippet_1
+
+LANGUAGE: js
+CODE:
+```
+const currentMiniEpoch = await zilliqa.blockchain.getCurrentMiniEpoch();
+console.log(currentMiniEpoch.result);
+```
+
+----------------------------------------
+
+TITLE: trace_transaction API Method Parameters
+DESCRIPTION: Defines the required parameters for the `trace_transaction` JSON-RPC method, including their types and descriptions.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/trace/trace_transaction.doc.md#_snippet_2
+
+LANGUAGE: APIDOC
+CODE:
+```
+trace_transaction method:
+  Parameters:
+    id:
+      Type: string
+      Required: true
+      Description: "1"
+    jsonrpc:
+      Type: string
+      Required: true
+      Description: "2.0"
+    method:
+      Type: string
+      Required: true
+      Description: "trace_transaction"
+    params:
+      Type: array
+      Required: true
+      Description: "[transactionHash] Transaction hash"
+```
+
+----------------------------------------
+
+TITLE: Withdraw Unstaked ZIL from Contract via z2 CLI
+DESCRIPTION: This command facilitates the withdrawal of previously unstaked ZIL from the deposit contract. It requires the chain name, the private key of the wallet, the BLS public key of the validator node, and a count parameter to specify how many withdrawals to process, with `0` indicating all.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/docs/staking.md#_snippet_7
+
+LANGUAGE: bash
+CODE:
+```
+z2 withdraw \
+  --chain <CHAIN_NAME>
+  --private-key <PRIVATE_KEY>
+  --public-key <PUBLIC_KEY>
+  --count <COUNT>
+```
+
+LANGUAGE: bash
+CODE:
+```
+z2 withdraw --chain zq2-prototestnet \
+  --private-key 96252e38af375be21d9eb30a6b88abc3836acecaeb2240731fb42e0299e14419 \
+  --public-key 825124961d51c99816848875fa505b75f2e62e69937fe9bfa5fa97711845abd667f05bdc3756f7dba6b7e9e0467a3804 \
+  --count 0
+```
+
+----------------------------------------
+
+TITLE: API Reference for ots_getBlockDetails
+DESCRIPTION: Defines the ots_getBlockDetails JSON-RPC method, detailing its parameters and their types, requirements, and descriptions.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/ots/ots_getblockdetails.doc.md#_snippet_2
+
+LANGUAGE: APIDOC
+CODE:
+```
+Method: ots_getBlockDetails
+Description: Returns details of a numbered block for otterscan.
+Parameters:
+  - name: block
+    type: number
+    required: true
+    description: The block number to query
+```
+
+----------------------------------------
+
+TITLE: API Parameter: Address
+DESCRIPTION: Defines the format for an account address parameter, expected as a hexadecimal value.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/resources/api_macros.tera.md#_snippet_0
+
+LANGUAGE: APIDOC
+CODE:
+```
+Address: The address of the account to query as a hex value.
+```
+
+----------------------------------------
+
+TITLE: API Reference: ots_getApiLevel
+DESCRIPTION: Detailed documentation for the ots_getApiLevel method, which provides the current Otterscan API level.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/ots/ots_getapilevel.doc.md#_snippet_2
+
+LANGUAGE: APIDOC
+CODE:
+```
+Method: ots_getApiLevel
+Description: Returns the Otterscan API level.
+Parameters:
+  None
+Returns:
+  Integer: The current API level.
+```
+
+----------------------------------------
+
+TITLE: eth_getTransactionByBlockNumberAndIndex RPC Method Documentation
+DESCRIPTION: Detailed documentation for the `eth_getTransactionByBlockNumberAndIndex` RPC method, including its parameters and return values.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_getTransactionByBlockNumberAndIndex.doc.md#_snippet_0
+
+LANGUAGE: APIDOC
+CODE:
+```
+eth_getTransactionByBlockNumberAndIndex(blockNumber: hex string, index: hex string) -> Transaction object | null
+  Description: Returns a transaction by index into a block, given by a block number.
+  Parameters:
+    blockNumber: The number of the block. (from {{ macro_blocknumber }})
+    index: A zero-based index of the transaction within the block, as a hex string - eg. 0x0.
+  Returns:
+    Transaction object | null: A transaction, or null if no such transaction is known to this node. (from {{ macro_returned_transaction }})
+```
+
+----------------------------------------
+
+TITLE: Generate Zilliqa ZQ2 Supported APIs Documentation
+DESCRIPTION: This command utilizes the `zq2` script to automatically generate a markdown file containing a table of supported APIs for the Zilliqa ZQ2 project, outputting it to a specified directory.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/README.md#_snippet_11
+
+LANGUAGE: sh
+CODE:
+```
+./scripts/zq2 doc-gen /tmp/mydir
+```
+
+----------------------------------------
+
+TITLE: API Documentation for eth_getUncleByBlockHashAndIndex Arguments
+DESCRIPTION: Details the required parameters for the eth_getUncleByBlockHashAndIndex JSON-RPC method, including their types and descriptions.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_getUncleByBlockHashAndIndex.doc.md#_snippet_2
+
+LANGUAGE: APIDOC
+CODE:
+```
+eth_getUncleByBlockHashAndIndex:
+  Parameters:
+    id: string (Required) - "1"
+    jsonrpc: string (Required) - "2.0"
+    method: string (Required) - "eth_getUncleByBlockHashAndIndex"
+    params: array (Required) - can be anything
+```
+
+----------------------------------------
+
+TITLE: Retrieve Transaction by Block Hash and Index (Curl)
+DESCRIPTION: Example `curl` command to call the `eth_getTransactionByBlockHashAndIndex` JSON-RPC method.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_getTransactionByBlockHashAndIndex.doc.md#_snippet_1
+
+LANGUAGE: sh
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "eth_getTransactionByBlockHashAndIndex",
+    "params": [ "0x50b3b76c3a4f19ac20e498744d8e0ff9a110b9130acb3ba786c80c26738ee9ae", "0x0"
+ ]}' -H "Content-Type: application/json" -X POST "{{ _api_url }}"
+```
+
+----------------------------------------
+
+TITLE: Fund Hardhat Accounts from ZIL Addresses
+DESCRIPTION: This script facilitates moving funds from ZIL-style addresses to their corresponding Ethereum-style addresses within the Hardhat configuration. It's useful when initial testnet funds are in ZIL format and need to be converted for convenience.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/evm_scilla_js_tests/README.md#_snippet_23
+
+LANGUAGE: bash
+CODE:
+```
+npx hardhat run scripts/FundAccountsFromZil.ts --network testnet
+```
+
+----------------------------------------
+
+TITLE: Get Current Mini Epoch in Java
+DESCRIPTION: Illustrates how to retrieve the current mini epoch using the Zilliqa Java SDK.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/zilliqa/getcurrentminiepoch.doc.md#_snippet_2
+
+LANGUAGE: java
+CODE:
+```
+public class App {
+    public static void main(String[] args) throws IOException {
+        HttpProvider client = new HttpProvider("{{ _api_url }}");
+        Rep<String> currentMiniEpoch = client.getCurrentMiniEpoch();
+        System.out.println(new Gson().toJson(currentMiniEpoch));
+    }
+}
+```
+
+----------------------------------------
+
+TITLE: Retrieve Recent Transactions in Go
+DESCRIPTION: Shows how to implement a function in Go to fetch recent transactions from the Zilliqa API. It uses a `Provider` and marshals the response to JSON.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/zilliqa/getrecenttransactions.doc.md#_snippet_4
+
+LANGUAGE: Go
+CODE:
+```
+func GetRecentTransactions() {
+    provider := NewProvider("{{ _api_url }}")
+    response := provider.GetRecentTransactions()
+    result, _ := json.Marshal(response)
+    fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: Get Current Mini Epoch in Go
+DESCRIPTION: Example of fetching the current mini epoch using the Zilliqa Go SDK.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/zilliqa/getcurrentminiepoch.doc.md#_snippet_4
+
+LANGUAGE: go
+CODE:
+```
+func GetCurrentMiniEpoch() {
+    provider := NewProvider("{{ _api_url }}")
+    response := provider.GetCurrentMiniEpoch()
+    result, _ := json.Marshal(response)
+    fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: Example Response for eth_chainId
+DESCRIPTION: Illustrates the expected JSON-RPC response containing the EVM chain ID as a hexadecimal string.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/eth/eth_chainId.doc.md#_snippet_1
+
+LANGUAGE: json
+CODE:
+```
+{"jsonrpc":"2.0","result":"0x82bc","id":"1"}
+```
+
+----------------------------------------
+
+TITLE: API Method: admin_consensusInfo
+DESCRIPTION: Documents the `admin_consensusInfo` RPC method, outlining its purpose, required parameters, their types, and descriptions.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/admin/admin_consensusInfo.doc.md#_snippet_2
+
+LANGUAGE: APIDOC
+CODE:
+```
+admin_consensusInfo:
+  Parameters:
+    id: string (Required) - "1"
+    jsonrpc: string (Required) - "2.0"
+    method: string (Required) - "admin_consensusInfo"
+    params: array (Required) - Empty array `[]`
+```
+
+----------------------------------------
+
+TITLE: Get Zilliqa account balance using Go
+DESCRIPTION: Demonstrates how to get an account's balance and nonce in Go. It initializes a provider, calls `GetBalance`, and marshals the response to JSON.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/zilliqa/getbalance.doc.md#_snippet_4
+
+LANGUAGE: go
+CODE:
+```
+func TestGetBalance() {
+  provider := NewProvider("https://api.zq2-devnet.zilliqa.com/")
+  response := provider.GetBalance("9bfec715a6bd658fcb62b0f8cc9bfa2ade71434a")
+  result, _ := json.Marshal(response)
+  fmt.Println(string(result))
+}
+```
+
+----------------------------------------
+
+TITLE: Call GetTransactionStatus with Curl
+DESCRIPTION: Example of how to invoke the `GetTransactionStatus` JSON-RPC method using `curl` to query the status of a specific transaction by its hash.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/docs/api/zilliqa/gettransactionstatus.doc.md#_snippet_1
+
+LANGUAGE: shell
+CODE:
+```
+curl -d '{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "method": "GetTransactionStatus",
+    "params": ["1bb178b023f816e950d862f6505cd79a32bb97e71fd78441cbc3486940a2e1b7"]
+}' -H "Content-Type: application/json" -X POST "{{ _api_url }}"
+```
+
+----------------------------------------
+
+TITLE: z2 withdraw Command Parameters Reference
+DESCRIPTION: This section provides a comprehensive reference for the parameters used with the `z2 withdraw` command. It details each parameter's function, expected data type, and possible values, including the special `count` parameter for processing multiple withdrawals.
+SOURCE: https://github.com/zilliqa/zq2/blob/main/z2/docs/staking.md#_snippet_8
+
+LANGUAGE: APIDOC
+CODE:
+```
+--chain <CHAIN_NAME>: The name of the chain. Possible values are zq2-devnet, zq2-prototestnet, zq2-protomainnet, zq2-testnet, zq2-mainnet.
+* --private-key <PRIVATE_KEY_OF_WALLET>: The private key of the wallet.
+* --public-key <BLS_PUBLIC_KEY>: The BLS public key of the validator node.
+* --count <COUNT>: Number of withdrawals to process. This is useful in scenarios when the processing a large number of withdrawals would take the transcation over the block gas limit. Set to `0` to process all withdrawals.
+```

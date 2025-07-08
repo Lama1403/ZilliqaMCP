@@ -84,16 +84,25 @@ function parseDocumentSections(content: string): DocumentSection[] {
   return sections;
 }
 
-function loadDocuments(): { blockchain: DocumentSection[], devDocs: DocumentSection[] } {
+function loadDocuments(): { blockchain: DocumentSection[], devDocs: DocumentSection[], ethereumMetrics: DocumentSection[], delegatedStaking: DocumentSection[], zilliqaStaking: DocumentSection[] } {
   const blockchainPath = path.join(DOCS_PATH, "ZilliqaBlockcahin.txt");
   const devDocsPath = path.join(DOCS_PATH, "ZilliqaDevDocs.txt");
+  const ethereumMetricsPath = path.join(DOCS_PATH, "Ethereum Metrics Exporter.txt");
+  const delegatedStakingPath = path.join(DOCS_PATH, "delegated_staking.txt");
+  const zilliqaStakingPath = path.join(DOCS_PATH, "Zilliqa Staking.txt");
   
   const blockchainContent = fs.readFileSync(blockchainPath, "utf-8");
   const devDocsContent = fs.readFileSync(devDocsPath, "utf-8");
+  const ethereumMetricsContent = fs.readFileSync(ethereumMetricsPath, "utf-8");
+  const delegatedStakingContent = fs.readFileSync(delegatedStakingPath, "utf-8");
+  const zilliqaStakingContent = fs.readFileSync(zilliqaStakingPath, "utf-8");
   
   return {
     blockchain: parseDocumentSections(blockchainContent),
-    devDocs: parseDocumentSections(devDocsContent)
+    devDocs: parseDocumentSections(devDocsContent),
+    ethereumMetrics: parseDocumentSections(ethereumMetricsContent),
+    delegatedStaking: parseDocumentSections(delegatedStakingContent),
+    zilliqaStaking: parseDocumentSections(zilliqaStakingContent)
   };
 }
 
@@ -112,8 +121,8 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
             },
             category: {
               type: "string",
-              description: "Category to search in: 'blockchain', 'devdocs', or 'all'",
-              enum: ["blockchain", "devdocs", "all"],
+              description: "Category to search in: 'blockchain', 'devdocs', 'ethereumMetrics', 'delegatedStaking', 'zilliqaStaking', or 'all'",
+              enum: ["blockchain", "devdocs", "ethereumMetrics", "delegatedStaking", "zilliqaStaking", "all"],
               default: "all",
             },
             language: {
@@ -150,8 +159,8 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           properties: {
             category: {
               type: "string",
-              description: "Category to list: 'blockchain', 'devdocs', or 'all'",
-              enum: ["blockchain", "devdocs", "all"],
+              description: "Category to list: 'blockchain', 'devdocs', 'ethereumMetrics', 'delegatedStaking', 'zilliqaStaking', or 'all'",
+              enum: ["blockchain", "devdocs", "ethereumMetrics", "delegatedStaking", "zilliqaStaking", "all"],
               default: "all",
             },
           },
@@ -186,18 +195,24 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case "search_zilliqa_docs": {
         const { query, category = "all", language } = args as {
           query: string;
-          category?: "blockchain" | "devdocs" | "all";
+          category?: "blockchain" | "devdocs" | "ethereumMetrics" | "delegatedStaking" | "zilliqaStaking" | "all";
           language?: string;
         };
         
         let sections: DocumentSection[] = [];
         
         if (category === "all") {
-          sections = [...docs.blockchain, ...docs.devDocs];
+          sections = [...docs.blockchain, ...docs.devDocs, ...docs.ethereumMetrics, ...docs.delegatedStaking, ...docs.zilliqaStaking];
         } else if (category === "blockchain") {
           sections = docs.blockchain;
         } else if (category === "devdocs") {
           sections = docs.devDocs;
+        } else if (category === "ethereumMetrics") {
+          sections = docs.ethereumMetrics;
+        } else if (category === "delegatedStaking") {
+          sections = docs.delegatedStaking;
+        } else if (category === "zilliqaStaking") {
+          sections = docs.zilliqaStaking;
         }
         
         const results = sections.filter(section => {
@@ -241,7 +256,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           language?: string;
         };
         
-        const allSections = [...docs.blockchain, ...docs.devDocs];
+        const allSections = [...docs.blockchain, ...docs.devDocs, ...docs.ethereumMetrics, ...docs.delegatedStaking, ...docs.zilliqaStaking];
         const apiSections = allSections.filter(section =>
           section.title.toLowerCase().includes(api_name.toLowerCase())
         );
@@ -291,17 +306,23 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       
       case "list_zilliqa_apis": {
         const { category = "all" } = args as {
-          category?: "blockchain" | "devdocs" | "all";
+          category?: "blockchain" | "devdocs" | "ethereumMetrics" | "delegatedStaking" | "zilliqaStaking" | "all";
         };
         
         let sections: DocumentSection[] = [];
         
         if (category === "all") {
-          sections = [...docs.blockchain, ...docs.devDocs];
+          sections = [...docs.blockchain, ...docs.devDocs, ...docs.ethereumMetrics, ...docs.delegatedStaking, ...docs.zilliqaStaking];
         } else if (category === "blockchain") {
           sections = docs.blockchain;
         } else if (category === "devdocs") {
           sections = docs.devDocs;
+        } else if (category === "ethereumMetrics") {
+          sections = docs.ethereumMetrics;
+        } else if (category === "delegatedStaking") {
+          sections = docs.delegatedStaking;
+        } else if (category === "zilliqaStaking") {
+          sections = docs.zilliqaStaking;
         }
         
         const apiList = sections.map(section => 

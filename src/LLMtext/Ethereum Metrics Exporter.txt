@@ -1,0 +1,91 @@
+
+TITLE: Install Ethereum Metrics Exporter via Helm Charts
+DESCRIPTION: These commands guide you through adding the necessary Helm repository and then installing the Ethereum Metrics Exporter using Helm. It includes an option to provide a custom `your_values.yaml` file for tailored deployments.
+SOURCE: https://github.com/zilliqa/ethereum-metrics-exporter/blob/main/README.md#_snippet_3
+
+LANGUAGE: Shell
+CODE:
+```
+helm repo add ethereum-helm-charts https://ethpandaops.github.io/ethereum-helm-charts
+
+helm install ethereum-metrics-exporter ethereum-helm-charts/ethereum-metrics-exporter -f your_values.yaml
+```
+
+----------------------------------------
+
+TITLE: Quick Start: Run Ethereum Metrics Exporter with Docker
+DESCRIPTION: This command demonstrates how to quickly launch the Ethereum Metrics Exporter as a detached Docker container. It maps the default metrics port and configures the exporter to connect to specified local consensus and execution node URLs.
+SOURCE: https://github.com/zilliqa/ethereum-metrics-exporter/blob/main/README.md#_snippet_1
+
+LANGUAGE: Shell
+CODE:
+```
+docker run -d -it --name ethereum-metrics-exporter -p 9090:9090 -it ethpandaops/ethereum-metrics-exporter --consensus-url=http://localhost:5052 --execution-url=http://localhost:8545
+```
+
+----------------------------------------
+
+TITLE: Build and Run Ethereum Metrics Exporter from Go Source
+DESCRIPTION: This sequence of shell commands outlines the process for developers to clone the project, navigate into its directory, build the executable binary using Go, and then run the exporter directly from the compiled binary.
+SOURCE: https://github.com/zilliqa/ethereum-metrics-exporter/blob/main/README.md#_snippet_4
+
+LANGUAGE: Shell
+CODE:
+```
+go get github.com/ethpandaops/ethereum-metrics-exporter
+cd ./ethereum-metrics-exporter
+go build -o ethereum-metrics-exporter .
+./ethereum-metrics-exporter
+```
+
+----------------------------------------
+
+TITLE: Git Workflow for Contributing to Ethereum Metrics Exporter
+DESCRIPTION: This snippet provides the standard Git commands for contributing to the project. It covers creating a feature branch, committing changes with a descriptive message, pushing the branch to the remote, and preparing for a pull request.
+SOURCE: https://github.com/zilliqa/ethereum-metrics-exporter/blob/main/README.md#_snippet_5
+
+LANGUAGE: Shell
+CODE:
+```
+git checkout -b feat/new-metric-profit
+git commit -m 'feat(profit): Export new metric: profit'
+git push origin feat/new-metric-profit
+```
+
+----------------------------------------
+
+TITLE: Run Ethereum Metrics Exporter with Docker and a Configuration File
+DESCRIPTION: This Docker command shows how to run the exporter while mounting a local configuration file. This allows for more complex and persistent configuration management within the Dockerized environment.
+SOURCE: https://github.com/zilliqa/ethereum-metrics-exporter/blob/main/README.md#_snippet_2
+
+LANGUAGE: Shell
+CODE:
+```
+docker run -d -it --name ethereum-metrics-exporter -v $HOST_DIR_CHANGE_ME/config.yaml:/opt/exporter/config.yaml -p 9090:9090 -it ethpandaops/ethereum-metrics-exporter --config /opt/exporter/config.yaml
+```
+
+----------------------------------------
+
+TITLE: Command Line Interface (CLI) Usage for Ethereum Metrics Exporter
+DESCRIPTION: This snippet details the command-line arguments and flags available for configuring the Ethereum Metrics Exporter. It covers options for specifying node URLs, metric port, disk usage monitoring, and execution modules.
+SOURCE: https://github.com/zilliqa/ethereum-metrics-exporter/blob/main/README.md#_snippet_0
+
+LANGUAGE: Shell
+CODE:
+```
+A tool to export the state of ethereum nodes
+
+Usage:
+  ethereum-metrics-exporter [flags]
+
+Flags:
+      --config string                   config file (default is $HOME/.ethereum-metrics-exporter.yaml)
+      --consensus-url string            (optional) URL to the consensus node
+      --disk-usage-interval string      (optional) interval for disk usage metrics collection (e.g. 1h, 5m, 30s)
+      --execution-modules strings       (optional) execution modules that are enabled on the node
+      --execution-url string            (optional) URL to the execution node
+  -h, --help                            help for ethereum-metrics-exporter
+      --metrics-port int                Port to serve Prometheus metrics on (default 9090)
+      --monitored-directories strings   (optional) directories to monitor for disk usage
+  -t, --toggle                          Help message for toggle
+```

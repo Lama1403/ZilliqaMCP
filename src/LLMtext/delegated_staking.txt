@@ -1,0 +1,790 @@
+TITLE: Generate NatSpec Documentation with Forge
+DESCRIPTION: This bash command uses 'forge doc' to generate and serve comprehensive NatSpec documentation for Solidity contracts. The '--serve' flag starts a local server, and '--open' automatically opens the documentation in a web browser.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_54
+
+LANGUAGE: bash
+CODE:
+```
+forge doc --serve --open
+```
+
+----------------------------------------
+
+TITLE: Stake ZIL using Forge Script
+DESCRIPTION: This command initiates a staking transaction for a specified amount of ZIL (e.g., 200 ZIL) to a delegation contract. It uses `forge script` to execute a Solidity script, broadcasting the transaction to the network. Requires the delegator's private key and sufficient balance to cover ZIL and transaction fees. Example output for liquid staking: `Running version: 0.9.0\n  Current stake: 10000000000000000000000000 wei\n  Current rewards: 110314207650273223687 wei\n  LST address: 0x9e5c257D1c6dF74EaA54e58CdccaCb924669dc83\n  Staker balance before: 99899145245801454561224 wei 0 LST\n  Staker balance after: 99699145245801454561224 wei 199993793908430833324 LST`. Example output for non-liquid staking: `Running version: 0.9.0\n  Current stake: 10000000000000000000000000 wei\n  Current rewards: 110314207650273223687 wei\n  Staker balance before: 99899145245801454561224 wei\n  Staker balance after: 99699145245801454561224 wei`.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_32
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/Stake.s.sol --broadcast --legacy --sig "run(address payable, uint256)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 200000000000000000000 --private-key 0x...
+```
+
+----------------------------------------
+
+TITLE: Unstake LST or ZIL using Forge Script
+DESCRIPTION: This command initiates an unstaking transaction for a specified amount of LST (liquid variant) or ZIL (non-liquid variant). It uses `forge script` to execute the `Unstake.s.sol` script, broadcasting the transaction. Requires the private key of an account holding LST or the delegator account. Example output for liquid unstaking: `Running version: 0.9.0\n  Current stake: 10000000000000000000000000 wei\n  Current rewards: 331912568306010928520 wei\n  LST address: 0x9e5c257D1c6dF74EaA54e58CdccaCb924669dc83\n  Staker balance before: 99698814298179759361224 wei 199993784619390291653 LST\n  Staker balance after: 99698814298179759361224 wei 99993784619390291653 LST`. Example output for non-liquid unstaking: `Running version: 0.9.0\n  Current stake: 10000000000000000000000000 wei\n  Current rewards: 331912568306010928520 wei\n  Staker balance before: 99698814298179759361224 wei\n  Staker balance after: 99698814298179759361224 wei`.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_35
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/Unstake.s.sol --broadcast --legacy --sig "run(address payable, uint256)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 100000000000000000000 --private-key 0x...
+```
+
+----------------------------------------
+
+TITLE: Set Delegated Staking Commission Rate (Bash)
+DESCRIPTION: Use this `forge script` command to set the commission rate for the staking pool's validators. The rate is specified as an integer (e.g., 1000 for 10%) which will be divided by the `DENOMINATOR` from the delegation contract. If the pool holds delegated stake, the commission rate can only be changed by less than 2 percentage points at once, and the last change must be at least 86400 blocks old. Example output after setting: "Running version: 0.9.0\nCommission rate: 0.0%\nNew commission rate: 10.0%".
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_13
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/Configure.s.sol --broadcast --legacy --sig "commissionRate(address payable, uint16)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 1000
+```
+
+----------------------------------------
+
+TITLE: Perform Zilliqa Delegated Staking Operations via Bash Scripts
+DESCRIPTION: Examples demonstrating how to use various bash scripts to interact with Zilliqa delegated staking functionalities. These scripts cover staking, unstaking (partial or full), claiming unstaked funds, and managing accrued rewards (staking or withdrawing), as well as querying the current state of a delegator's stake. Private keys are represented as `0x...`.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_49
+
+LANGUAGE: bash
+CODE:
+```
+chmod +x stake.sh && ./stake.sh 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 0x... 200000000000000000000
+```
+
+LANGUAGE: bash
+CODE:
+```
+chmod +x unstake.sh && ./unstake.sh 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 0x... 100000000000000000000
+```
+
+LANGUAGE: bash
+CODE:
+```
+chmod +x unstake.sh && ./unstake.sh 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 0x...
+```
+
+LANGUAGE: bash
+CODE:
+```
+chmod +x claim.sh && ./claim.sh 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 0x...
+```
+
+LANGUAGE: bash
+CODE:
+```
+chmod +x stakeRewards.sh && ./stakeRewards.sh 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 0x...
+```
+
+LANGUAGE: bash
+CODE:
+```
+chmod +x withdrawRewards.sh && ./withdrawRewards.sh 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 0x...
+```
+
+LANGUAGE: bash
+CODE:
+```
+chmod +x withdrawRewards.sh && ./withdrawRewards.sh 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 0x... 10000000000000000000
+```
+
+LANGUAGE: bash
+CODE:
+```
+chmod +x withdrawRewards.sh && ./withdrawRewards.sh 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 0x... 10000000000000000000 1000
+```
+
+LANGUAGE: bash
+CODE:
+```
+chmod +x state.sh && ./state.sh 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 0xd819fFcE7A58b1E835c25617Db7b46a00888B013
+```
+
+----------------------------------------
+
+TITLE: Change Delegated Staking Commission Receiver (Bash)
+DESCRIPTION: This `forge script` command allows the current contract owner to change the address where commissions are transferred. The second argument should be a non-zero address, which can be a cold wallet, multisig, or a smart contract for proportional distribution. Example output after changing: "Running version: 0.9.0\nCommission receiver: 0x15fc323DFE5D5DCfbeEdc25CEcbf57f676634d77\nNew commission receiver: 0xeA78aAE5Be606D2D152F00760662ac321aB8F017".
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_18
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/Configure.s.sol --broadcast --legacy --sig "commissionReceiver(address payable, address)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 0xeA78aAE5Be606D2D152F00760662ac321aB8F017
+```
+
+----------------------------------------
+
+TITLE: Claim Unstaked ZIL using Forge Script
+DESCRIPTION: This command allows claiming the unstaked ZIL amount after the unbonding period has passed. It uses `forge script` to execute the `Claim.s.sol` script, broadcasting the transaction. Requires the private key of the account that initiated the unstaking. Example output: `Running version: 0.9.0\n  Staker balance before: 99698086421983460161224 wei\n  Staker balance after: 99798095485861371162343 wei`.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_36
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/Claim.s.sol --broadcast --legacy --sig "run(address payable)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 --private-key 0x...
+```
+
+----------------------------------------
+
+TITLE: Zilliqa Delegated Staking Core Contract Interface
+DESCRIPTION: Defines the essential events and functions for interacting with the Zilliqa 2.0 delegated staking mechanism. It includes events for the staking lifecycle and functions for managing stakes, claims, and retrieving staking parameters.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_51
+
+LANGUAGE: APIDOC
+CODE:
+```
+IDeposit Interface & BaseDelegation Contract:
+
+Events:
+  event Staked(address indexed delegator, uint256 amount, bytes data);
+  event Unstaked(address indexed delegator, uint256 amount, bytes data);
+  event Claimed(address indexed delegator, uint256 amount, bytes data);
+  event CommissionPaid(address indexed receiver, uint256 commission);
+  event CommissionChanged(uint256 oldCommissionRate, uint256 newCommissionRate);
+
+Functions:
+  function stake() external payable;
+  function unstake(uint256) external returns(uint256 unstakedZil);
+  function claim() external;
+  function unbondingPeriod() external virtual view returns(uint256 numberOfBlocks);
+  function getClaimable() external virtual view returns(uint256 total);
+  function getPendingClaims() external virtual view returns(uint256[2][] memory blockNumbersAndAmounts);
+  function getMinDelegation() external view returns(uint256 amount);
+  function getCommission() external view returns(uint256 numerator, uint256 denominator);
+  function getStake() external view returns(uint256 validatorStake);
+```
+
+----------------------------------------
+
+TITLE: Query Claimable ZIL Amount using Cast
+DESCRIPTION: This command queries the
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_37
+
+
+
+----------------------------------------
+
+TITLE: Zilliqa Non-Liquid Staking Contract Functions and Events
+DESCRIPTION: This set of Solidity events and functions applies to the non-liquid staking variant. It provides mechanisms for managing delegated amounts, withdrawing rewards, and staking rewards directly.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_53
+
+LANGUAGE: APIDOC
+CODE:
+```
+Non-Liquid Staking Events & Functions:
+Events:
+  event RewardPaid(address indexed delegator, uint256 reward);
+
+Functions:
+  function getDelegatedAmount() external view returns(uint256 result);
+  function getDelegatedTotal() external view returns(uint256 result);
+  function withdrawAllRewards() external returns(uint256 taxedRewards);
+  function stakeRewards() external;
+```
+
+----------------------------------------
+
+TITLE: Run End-to-End Tests for Zilliqa Liquid and Non-Liquid Staking
+DESCRIPTION: Steps to configure and execute end-to-end tests on a local Zilliqa network. This involves modifying `config_docker.toml` to adjust genesis account funds, withdrawal period, and blocks per epoch, followed by running specific bash scripts for liquid and non-liquid staking scenarios.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_48
+
+LANGUAGE: bash
+CODE:
+```
+chmod +x e2e_liquid.sh && ./e2e_liquid.sh
+```
+
+LANGUAGE: bash
+CODE:
+```
+chmod +x e2e_non-liquid.sh && ./e2e_non-liquid.sh
+```
+
+----------------------------------------
+
+TITLE: Query Partial Rewards for Non-Liquid Staking Delegators
+DESCRIPTION: To mitigate gas limit issues, delegators can query rewards accrued over a specific number of recent staking periods (`n`). This `cast` command calls `rewards(uint64)` with the desired number of periods, converting the result to ether.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_40
+
+LANGUAGE: bash
+CODE:
+```
+cast to-unit $(cast call 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "rewards(uint64)(uint256)" 100 --from 0xd819fFcE7A58b1E835c25617Db7b46a00888B013 --block latest | sed 's/\[[^\]]*\]//g') ether
+```
+
+----------------------------------------
+
+TITLE: Zilliqa Liquid Staking Contract Functions
+DESCRIPTION: These Solidity functions are specific to the liquid staking variant of Zilliqa's delegated staking. They allow retrieval of the Liquid Staking Token (LST) contract address and its price relative to ZIL.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_52
+
+LANGUAGE: APIDOC
+CODE:
+```
+Liquid Staking Functions:
+  function getLST() external view returns(address erc20Contract);
+  function getPrice() external view returns(uint256 oneTokenToZil);
+```
+
+----------------------------------------
+
+TITLE: Query Liquid Staking Token (LST) Price using Cast
+DESCRIPTION: This command retrieves the current price of an LST from the delegation contract. It calls the `getPrice()` method and converts the result to ether units using `cast to-unit`. The `--block latest` flag ensures the query is against the most recent block for accurate pricing.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_34
+
+LANGUAGE: bash
+CODE:
+```
+cast to-unit $(cast call 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "getPrice()(uint256)" --block latest | sed 's/\[[^\]]*\]//g') ether
+```
+
+----------------------------------------
+
+TITLE: Generate BLS public key and signature for validator (Zilliqa)
+DESCRIPTION: This command demonstrates how to use the `convert-key` tool to generate the necessary BLS public key and signature for a validator node. It highlights the importance of including the delegation contract address as the `control_address` in the input JSON for correct key generation.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_29
+
+LANGUAGE: bash
+CODE:
+```
+echo '{"secret_key":"...", "chain_id":..., "control_address":"0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2"}' | cargo run --bin convert-key
+```
+
+----------------------------------------
+
+TITLE: Zilliqa Delegated Staking Revert Error Signatures
+DESCRIPTION: This Solidity snippet lists common error signatures (first 4 bytes) and their corresponding custom error types used in Zilliqa delegated staking contracts. These can be used to interpret revert data from failed transactions.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_55
+
+LANGUAGE: APIDOC
+CODE:
+```
+Revert Error Signatures:
+  0xf4298c09   UnstakedDepositMismatch(bytes,uint256,uint256)
+  0x9eadf3a4   ValidatorNotFound(bytes)
+  0xa352f4cc   TooManyValidators(bytes)
+  0x18faf0e2   ValidatorAlreadyAdded(bytes)
+  0x16cece48   InvalidCaller(address,address)
+  0xdd1cbc92   DepositContractCallFailed(bytes,bytes)
+  0xf53efef1   InvalidValidatorStatus(bytes,uint8,uint8)
+  0x1c43b976   TransferFailed(address,uint256)
+  0xe243fe9d   WithdrawalsPending(bytes,uint256)
+  0x37471911   InvalidCommissionChange(uint256)
+  0x6dcaa249   InvalidVersionNumber(uint256)
+  0x7640cbd7   AmountTooLow(uint256)
+  0xf6d81a2c   RequestedAmountTooHigh(uint256,uint256)
+  0x0474d3b0   StakingPoolNotActivated()
+  0x2adad5a5   StakerNotFound(address)
+  0xa8ca83c9   StakerAlreadyExists(address)
+  0x30e667d2   IncompatibleVersion(uint64)
+  0x8579befe   ZeroAddressNotAllowed()
+  0xa0753f46   InsufficientAvailableStake(uint256,uint256)
+```
+
+----------------------------------------
+
+TITLE: Configure Zilliqa 2.0 contracts remapping for Foundry
+DESCRIPTION: Add a remapping entry in remappings.txt to specify the local path of the Zilliqa 2.0 Solidity contracts. This helps Foundry locate and compile the project's contracts correctly.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_3
+
+LANGUAGE: text
+CODE:
+```
+@zilliqa/zq2/=/home/user/zq2/zilliqa/src/contracts/
+```
+
+----------------------------------------
+
+TITLE: Verify NonLiquidDelegation Implementation on Sourcify (Bash)
+DESCRIPTION: Use this command to verify the NonLiquidDelegation implementation contract on Sourcify. Ensure you use the correct implementation contract address.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_10
+
+LANGUAGE: bash
+CODE:
+```
+forge verify-contract 0x7C623e01c5ce2e313C223ef2aEc1Ae5C6d12D9DD NonLiquidDelegation --verifier sourcify
+```
+
+----------------------------------------
+
+TITLE: Query Available Rewards for Non-Liquid Staking Delegators
+DESCRIPTION: Delegators in non-liquid staking can query their total available rewards. This `cast` command calls the `rewards()` function on the staking contract and converts the returned value to ether units.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_39
+
+LANGUAGE: bash
+CODE:
+```
+cast to-unit $(cast call 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "rewards()(uint256)" --from 0xd819fFcE7A58b1E835c25617Db7b46a00888B013 --block latest | sed 's/\[[^\]]*\]//g') ether
+```
+
+----------------------------------------
+
+TITLE: Execute Foundry Unit Tests for Zilliqa Staking Contracts
+DESCRIPTION: Instructions for running unit tests for Zilliqa staking contracts using Foundry. The `unset FOUNDRY_ETH_RPC_URL` command ensures tests run locally without an external RPC. The `-vv` flag provides verbose output, showing calculated values during testing.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_47
+
+LANGUAGE: bash
+CODE:
+```
+unset FOUNDRY_ETH_RPC_URL
+forge test
+```
+
+LANGUAGE: bash
+CODE:
+```
+unset FOUNDRY_ETH_RPC_URL
+forge test -vv
+```
+
+----------------------------------------
+
+TITLE: Install OpenZeppelin contracts using Forge
+DESCRIPTION: Before deploying and interacting with Zilliqa 2.0 staking contracts, install the necessary OpenZeppelin contracts using Forge. This command ensures the required dependencies are available for compilation and deployment.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_0
+
+LANGUAGE: bash
+CODE:
+```
+forge install OpenZeppelin/openzeppelin-contracts-upgradeable --no-commit
+forge install OpenZeppelin/openzeppelin-contracts --no-commit
+```
+
+----------------------------------------
+
+TITLE: Query Liquid Staking Token (LST) Balance using Cast
+DESCRIPTION: This command queries the LST balance for a specific address. It first retrieves the LST contract address from the delegation contract, then calls the `balanceOf` method on the LST contract. The output is piped through `sed` to remove extra characters, providing a clean balance.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_33
+
+LANGUAGE: bash
+CODE:
+```
+cast call $(cast call 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "getLST()(address)") "balanceOf(address)(uint256)" 0xd819fFcE7A58b1E835c25617Db7b46a00888B013 | sed 's/\[[^\]]*\]//g'
+```
+
+----------------------------------------
+
+TITLE: Verify LiquidDelegation Implementation on Sourcify (Bash)
+DESCRIPTION: Use this command to verify the LiquidDelegation implementation contract on Sourcify. Ensure you use the correct implementation contract address.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_9
+
+LANGUAGE: bash
+CODE:
+```
+forge verify-contract 0x7C623e01c5ce2e313C223ef2aEc1Ae5C6d12D9DD LiquidDelegation --verifier sourcify
+```
+
+----------------------------------------
+
+TITLE: View Current Delegated Staking Commission Rate (Bash)
+DESCRIPTION: Run this `forge script` command to query and display the current commission rate configured for the delegated staking contract. The output will show the rate as an integer value.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_15
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/Configure.s.sol --broadcast --legacy --sig "commissionRate(address payable)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2
+```
+
+----------------------------------------
+
+TITLE: Set Foundry RPC URL environment variable
+DESCRIPTION: Configure the FOUNDRY_ETH_RPC_URL environment variable to point to your Ethereum RPC node. This allows Forge commands to communicate with the blockchain network for deployment and interaction.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_1
+
+LANGUAGE: bash
+CODE:
+```
+export FOUNDRY_ETH_RPC_URL=http://localhost:4202
+```
+
+----------------------------------------
+
+TITLE: Solidity event for validator leaving status (Zilliqa)
+DESCRIPTION: This Solidity event is emitted by the `leavePool` transaction, indicating whether the request to leave the pool was successful. It provides the BLS public key of the validator and a boolean indicating success. This helps in programmatic verification of the leaving process.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_25
+
+LANGUAGE: solidity
+CODE:
+```
+event ValidatorLeaving(bytes indexed blsPubKey, bool success);
+```
+
+----------------------------------------
+
+TITLE: Estimate Additional Steps for Full Reward Withdrawal
+DESCRIPTION: Before attempting a full reward withdrawal, delegators can estimate the number of additional staking periods (`n`) needed to cover all rewards. This `cast` command calls the `getAdditionalSteps()` function on the staking contract.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_41
+
+LANGUAGE: bash
+CODE:
+```
+cast call 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "getAdditionalSteps()(uint64)" --from 0xd819fFcE7A58b1E835c25617Db7b46a00888B013
+```
+
+----------------------------------------
+
+TITLE: Retrieve Commission Rate Denominator (Bash)
+DESCRIPTION: This `cast call` command retrieves the `DENOMINATOR` value from the delegation contract. This value is crucial for interpreting the integer commission rate, as the actual percentage is calculated by dividing the set rate by this denominator.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_16
+
+LANGUAGE: bash
+CODE:
+```
+cast call 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "DENOMINATOR()(uint256)" | sed 's/\[[^]]*\]//g'
+```
+
+----------------------------------------
+
+TITLE: View Current Delegated Staking Commission Receiver (Bash)
+DESCRIPTION: Use this `forge script` command to check and display the current address configured to receive the delegated staking commissions.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_19
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/Configure.s.sol --broadcast --legacy --sig "commissionReceiver(address payable)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2
+```
+
+----------------------------------------
+
+TITLE: Specify RPC URL directly in Forge commands
+DESCRIPTION: Alternatively to setting an environment variable, you can specify the RPC URL directly in each Forge command using the --rpc-url option. This provides flexibility for different network configurations.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_2
+
+LANGUAGE: bash
+CODE:
+```
+--rpc-url http://localhost:4202
+```
+
+----------------------------------------
+
+TITLE: Verify Liquid Staking Proxy and LST Contracts on Sourcify (Bash)
+DESCRIPTION: These commands verify both the ERC1967Proxy contract and the associated NonRebasingLST contract for the liquid staking variant on Sourcify. It requires the proxy address, implementation address, signer address, and the LST's Name and Symbol used during deployment.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_11
+
+LANGUAGE: bash
+CODE:
+```
+forge verify-contract 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 ERC1967Proxy --verifier sourcify --constructor-args $(cast abi-encode "_(address,bytes)" 0x7C623e01c5ce2e313C223ef2aEc1Ae5C6d12D9DD $(cast calldata "initialize(address,string,string)" 0x15fc323DFE5D5DCfbeEdc25CEcbf57f676634d77 Name Symbol))
+
+forge verify-contract $(cast call 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "getLST()(address)") NonRebasingLST --verifier sourcify --constructor-args $(cast abi-encode "_(string,string)" Name Symbol)
+```
+
+----------------------------------------
+
+TITLE: Deposit Full Required Stake for Zilliqa Validator (Bash)
+DESCRIPTION: This `cast send` command is used to deposit the full required minimum stake for a Zilliqa validator. It combines the user's personal balance with funds collected by their delegation contract. The `depositFromPool(bytes,bytes,bytes)` function is invoked, and the `peer_id` must be converted from base58 to hex.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_30
+
+LANGUAGE: bash
+CODE:
+```
+cast send --legacy --value 5000000ether --private-key $PRIVATE_KEY \
+0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "depositFromPool(bytes,bytes,bytes)" \
+0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
+0x002408011220d5ed74b09dcbe84d3b32a56c01ab721cf82809848b6604535212a219d35c412f \
+0xb14832a866a49ddf8a3104f8ee379d29c136f29aeb8fccec9d7fb17180b99e8ed29bee2ada5ce390cb704bc6fd7f5ce814f914498376c4b8bc14841a57ae22279769ec8614e2673ba7f36edc5a4bf5733aa9d70af626279ee2b2cde939b4bd8a
+```
+
+----------------------------------------
+
+TITLE: Collect Outstanding Delegated Staking Commission (Bash)
+DESCRIPTION: The contract owner can use this `forge script` command to request and transfer any outstanding commission that has accrued but not yet been automatically transferred. Commissions are automatically deducted when delegators stake or unstake, or when rewards are staked.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_17
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/CollectCommission.s.sol --broadcast --legacy --sig "run(address payable)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2
+```
+
+----------------------------------------
+
+TITLE: Deposit ZIL to turn synced node into first validator (Zilliqa)
+DESCRIPTION: For a new staking pool, this command allows the delegation contract owner to deposit ZIL to activate a fully synced node as the first validator. It requires the BLS public key, peer ID, and BLS signature of the node, along with the deposit amount. The delegation contract address must be used as the `control_address` when generating the BLS key and signature.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_28
+
+LANGUAGE: bash
+CODE:
+```
+cast send --legacy --value 10000000ether --private-key $PRIVATE_KEY \
+0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "depositFromPool(bytes,bytes,bytes)" \
+0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
+0x002408011220d5ed74b09dcbe84d3b32a56c01ab721cf82809848b6604535212a219d35c412f \
+0xb14832a866a49ddf8a3104f8ee379d29c136f29aeb8fccec9d7fb17180b99e8ed29bee2ada5ce390cb704bc6fd7f5ce814f914498376c4b8bc14841a57ae22279769ec8614e2673ba7f36edc5a4bf5733aa9d70af626279ee2b2cde939b4bd8a
+```
+
+----------------------------------------
+
+TITLE: Check Delegation Contract Variant (Bash)
+DESCRIPTION: Use this command to determine whether a given proxy contract address supports LiquidStaking or NonLiquidStaking. The output will indicate the variant or state 'none' if the address is not a valid delegation contract.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_6
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/CheckVariant.s.sol --sig "run(address payable)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2
+```
+
+----------------------------------------
+
+TITLE: Simulate Full Reward Withdrawal Transaction Gas Estimation
+DESCRIPTION: If a full withdrawal might exceed block gas limits, delegators can simulate the transaction to estimate its gas cost. This `cast estimate` command checks the gas required for `withdrawlAllRewards()` without actually submitting the transaction.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_42
+
+LANGUAGE: bash
+CODE:
+```
+cast estimate 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "withdrawlAllRewards()" --from 0xd819fFcE7A58b1E835c25617Db7b46a00888B013 --gas-limit 84000000
+```
+
+----------------------------------------
+
+TITLE: Deploy NonLiquidDelegation Contract (Bash)
+DESCRIPTION: This command deploys the NonLiquidDelegation contract, which implements the non-liquid staking variant. This variant allows delegators to directly withdraw their rewards.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_5
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/Deploy.s.sol --broadcast --legacy --sig "nonLiquidDelegation()"
+```
+
+----------------------------------------
+
+TITLE: View Last Commission Change Block Height (Bash)
+DESCRIPTION: Execute this `forge script` command to retrieve the block height at which the commission rate was last modified. This is useful for adhering to the `86400` block cooldown period between significant commission rate changes.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_14
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/Configure.s.sol --broadcast --legacy --sig "commissionChange(address payable)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2
+```
+
+----------------------------------------
+
+TITLE: Deposit Specific Amount of Stake for Zilliqa Validator (Bash)
+DESCRIPTION: This `cast send` command allows depositing a specific, user-defined amount of ZIL from the delegation contract's available stake. It uses the `depositFromPool(bytes,bytes,bytes,uint256)` function, where the last argument specifies the amount in ZIL.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_31
+
+LANGUAGE: bash
+CODE:
+```
+cast send --legacy --value 5000000ether --private-key $PRIVATE_KEY \
+0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "depositFromPool(bytes,bytes,bytes,uint256)" \
+0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
+0x002408011220d5ed74b09dcbe84d3b32a56c01ab721cf82809848b6604535212a219d35c412f \
+0xb14832a866a49ddf8a3104f8ee379d29c136f29aeb8fccec9d7fb17180b99e8ed29bee2ada5ce390cb704bc6fd7f5ce814f914498376c4b8bc14841a57ae22279769ec8614e2673ba7f36edc5a4bf5733aa9d70af626279ee2b2cde939b4bd8a \
+10000000000000000000000000
+```
+
+----------------------------------------
+
+TITLE: Stake Rewards from Delegator Account
+DESCRIPTION: Instead of withdrawing, delegators can choose to stake their accrued rewards back into the pool. This Forge script command facilitates staking rewards using the delegator's private key.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_44
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/StakeRewards.s.sol --broadcast --legacy --sig "run(address payable)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 --private-key 0x...
+```
+
+----------------------------------------
+
+TITLE: Initiate validator leaving staking pool (Zilliqa)
+DESCRIPTION: This command initiates the process for a validator to leave a staking pool. It requires the node's control address private key and BLS public key. Note that the validator cannot leave if there are pending stake withdrawals.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_24
+
+LANGUAGE: bash
+CODE:
+```
+cast send --legacy --private-key 0x... \
+0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "leavePool(bytes)" \
+0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c
+```
+
+----------------------------------------
+
+TITLE: Check Delegation Contract Version (Bash)
+DESCRIPTION: This command allows you to check the current version of your deployed delegation contract. Provide the proxy address of the contract to retrieve its version information.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_8
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/CheckVersion.s.sol --sig "run(address payable)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2
+```
+
+----------------------------------------
+
+TITLE: Verify Non-Liquid Staking Proxy Contract on Sourcify (Bash)
+DESCRIPTION: This command verifies the ERC1967Proxy contract for the non-liquid staking variant on Sourcify. It requires the proxy contract address, the implementation contract address, and the signer address used during deployment.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_12
+
+LANGUAGE: bash
+CODE:
+```
+forge verify-contract 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 ERC1967Proxy --verifier sourcify --constructor-args $(cast abi-encode "_(address,bytes)" 0x7C623e01c5ce2e313C223ef2aEc1Ae5C6d12D9DD $(cast calldata "initialize(address)" 0x15fc323DFE5D5DCfbeEdc25CEcbf57f676634d77))
+```
+
+----------------------------------------
+
+TITLE: Deploy LiquidDelegation Contract (Bash)
+DESCRIPTION: This command deploys the LiquidDelegation contract, which enables liquid staking and automatically deploys a NonRebasingLST contract upon initialization. It requires the Name and Symbol for the associated Liquid Staking Token (LST).
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_4
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/Deploy.s.sol --broadcast --legacy --sig "liquidDelegation(string,string)" Name Symbol
+```
+
+----------------------------------------
+
+TITLE: Withdraw Specific Amount of Rewards with Partial Periods
+DESCRIPTION: Delegators can withdraw a specific amount of ZIL rewards, optionally limiting the withdrawal to a certain number of staking periods (`n`). This Forge script command allows precise control over the withdrawal amount and scope.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_43
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/WithdrawRewards.s.sol --broadcast --legacy --sig "run(address payable, string, string)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 1000000000000000000000 100 --private-key 0x...
+```
+
+----------------------------------------
+
+TITLE: Staking pool owner adds validator to pool (Zilliqa)
+DESCRIPTION: The staking pool contract owner executes this command using the pool's private key and the validator's BLS public key. This action formally adds the validator node to the staking pool, completing the handover process.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_22
+
+LANGUAGE: bash
+CODE:
+```
+cast send --legacy --private-key $PRIVATE_KEY \
+0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "joinPool(bytes)" \
+0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c
+```
+
+----------------------------------------
+
+TITLE: Register control address for validator to join staking pool (Zilliqa)
+DESCRIPTION: This command registers a node's control address with a staking pool, a prerequisite for a solo staker to join the pool. It requires the private key of the node's control address and its BLS public key. This is the first step in the handover process.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_20
+
+LANGUAGE: bash
+CODE:
+```
+cast send --legacy --private-key 0x... \
+0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "registerControlAddress(bytes)" \
+0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c
+```
+
+----------------------------------------
+
+TITLE: Upgrade Delegation Contract (Bash)
+DESCRIPTION: This command upgrades an existing delegation contract to its latest version. It requires the proxy address of the contract to be upgraded.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_7
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/Upgrade.s.sol --broadcast --legacy --sig "run(address payable)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2
+```
+
+----------------------------------------
+
+TITLE: Check for pending validator withdrawals (Zilliqa)
+DESCRIPTION: This command allows checking if a validator has pending withdrawals, which can block the `leavePool` operation. It queries the staking pool contract with the validator's BLS public key. The command returns `true` if there are pending withdrawals, `false` otherwise.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_26
+
+LANGUAGE: bash
+CODE:
+```
+cast call 0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "pendingWithdrawals(bytes)(bool)" \
+0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c
+```
+
+----------------------------------------
+
+TITLE: Stake Accrued Rewards for Liquid Staking Pools
+DESCRIPTION: Node operators in liquid staking variants can stake rewards accrued by their node. This command uses a Forge script to broadcast the transaction, requiring the staking contract address and the operator's private key.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_38
+
+LANGUAGE: bash
+CODE:
+```
+forge script script/StakeRewards.s.sol --broadcast --legacy --sig "run(address payable)" 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 --private-key 0x...
+```
+
+----------------------------------------
+
+TITLE: Complete validator leaving staking pool (Zilliqa)
+DESCRIPTION: After the unbonding period, this command finalizes the validator's departure from the staking pool. It requires the node's control address private key and BLS public key. This is the last step to fully remove the validator from the pool.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_27
+
+LANGUAGE: bash
+CODE:
+```
+cast send --legacy --private-key 0x... \
+0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "completeLeaving(bytes)" \
+0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c
+```
+
+----------------------------------------
+
+TITLE: Finalize Delegator Address Replacement
+DESCRIPTION: After setting the new address, the second step finalizes the delegator address replacement. This command uses the new address's private key to call `replaceOldAddress()` on the staking contract, linking the new address to the old one's staking history.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_46
+
+LANGUAGE: bash
+CODE:
+```
+cast send --legacy --private-key 0x... 0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "replaceOldAddress(address)" 0xd819fFcE7A58b1E835c25617Db7b46a00888B013
+```
+
+----------------------------------------
+
+TITLE: Set New Delegator Address for Non-Liquid Staking
+DESCRIPTION: Delegators in non-liquid staking can initiate an address replacement process. This first step uses the current address's private key to call `setNewAddress()` on the staking contract, registering the new address.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_45
+
+LANGUAGE: bash
+CODE:
+```
+cast send --legacy --private-key 0x... 0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "setNewAddress(address)" 0x092E5E57955437876dA9Df998C96e2BE19341670
+```
+
+----------------------------------------
+
+TITLE: Set control address for validator to join staking pool (Zilliqa)
+DESCRIPTION: Following registration, this command sets the control address to the staking pool's delegation contract. It uses the same private key and BLS public key, along with the delegation contract's address. This prepares the node for the pool owner to add it.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_21
+
+LANGUAGE: bash
+CODE:
+```
+cast send --legacy --private-key 0x... \
+0x00000000005a494c4445504f53495450524f5859 "setControlAddress(bytes,address)" \
+0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
+0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2
+```
+
+----------------------------------------
+
+TITLE: Check Zilliqa Delegator Stake State
+DESCRIPTION: This bash command executes a script to display the stake state of a specific delegator at a given block number. It requires the script to be executable and takes delegator address, contract address, and block number as arguments.
+SOURCE: https://github.com/zilliqa/delegated_staking/blob/main/README.md#_snippet_50
+
+LANGUAGE: bash
+CODE:
+```
+chmod +x state.sh && ./state.sh 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 0xd819fFcE7A58b1E835c25617Db7b46a00888B013 4800000
+```
