@@ -8,6 +8,7 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import * as fs from "fs";
 import * as path from "path";
+import * as http from "http";
 
 const server = new Server(
   {
@@ -312,9 +313,89 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 });
 
 async function main() {
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
-  console.error("Zilliqa MCP Server running on stdio");
+  const port = process.env.PORT || 3000;
+  const useHttp = process.env.MCP_TRANSPORT === "http" || process.env.NODE_ENV === "production";
+  
+  if (useHttp) {
+    const httpServer = http.createServer(async (req, res) => {
+      if (req.method === "OPTIONS") {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+        res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        res.writeHead(200);
+        res.end();
+        return;
+      }
+
+      if (req.method === "POST") {
+        let body = "";
+        req.on("data", (chunk) => {
+          body += chunk.toString();
+        });
+        
+        req.on("end", async () => {
+          try {
+            const request = JSON.parse(body);
+            let response;
+            
+            if (request.method === "tools/list") {
+              response = await server.request(
+                { method: "tools/list", params: {} },
+                ListToolsRequestSchema
+              );
+            } else if (request.method === "tools/call") {
+              response = await server.request(request, CallToolRequestSchema);
+            } else {
+              throw new Error(`Unknown method: ${request.method}`);
+            }
+            
+            res.setHeader("Content-Type", "application/json");
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.writeHead(200);
+            res.end(JSON.stringify(response));
+          } catch (error) {
+            res.setHeader("Content-Type", "application/json");
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.writeHead(400);
+            res.end(JSON.stringify({ 
+              error: error instanceof Error ? error.message : String(error) 
+            }));
+          }
+        });
+      } else if (req.method === "GET" && req.url === "/") {
+        res.setHeader("Content-Type", "text/html");
+        res.writeHead(200);
+        res.end(`
+          <!DOCTYPE html>
+          <html>
+            <head><title>Zilliqa MCP Server</title></head>
+            <body>
+              <h1>Zilliqa MCP Server</h1>
+              <p>Server is running and ready to accept MCP requests.</p>
+              <h2>Available Tools:</h2>
+              <ul>
+                <li><strong>search_zilliqa_docs</strong> - Search through Zilliqa documentation</li>
+                <li><strong>get_zilliqa_api_example</strong> - Get specific API examples</li>
+                <li><strong>list_zilliqa_apis</strong> - List all available APIs</li>
+              </ul>
+              <p>Send POST requests to this endpoint with MCP protocol messages.</p>
+            </body>
+          </html>
+        `);
+      } else {
+        res.writeHead(404);
+        res.end("Not Found");
+      }
+    });
+    
+    httpServer.listen(port, () => {
+      console.log(`Zilliqa MCP Server running on HTTP port ${port}`);
+    });
+  } else {
+    const transport = new StdioServerTransport();
+    await server.connect(transport);
+    console.error("Zilliqa MCP Server running on stdio");
+  }
 }
 
 main().catch(console.error);

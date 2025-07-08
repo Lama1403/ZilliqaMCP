@@ -1,0 +1,12 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "npm run start"
+
+[[services]]
+name = "zilliqa-mcp-server"
+
+[env]
+NODE_ENV = "production"
+PORT = { default = 3000 }
