@@ -339,12 +339,214 @@ async function main() {
             let response;
             
             if (request.method === "tools/list") {
-              response = await server.request(
-                { method: "tools/list", params: {} },
-                ListToolsRequestSchema
-              );
+              response = {
+                tools: [
+                  {
+                    name: "search_zilliqa_docs",
+                    description: "Search through Zilliqa documentation for specific topics or keywords",
+                    inputSchema: {
+                      type: "object",
+                      properties: {
+                        query: {
+                          type: "string",
+                          description: "Search query to find relevant documentation sections",
+                        },
+                        category: {
+                          type: "string",
+                          description: "Category to search in: 'blockchain', 'devdocs', or 'all'",
+                          enum: ["blockchain", "devdocs", "all"],
+                          default: "all",
+                        },
+                        language: {
+                          type: "string",
+                          description: "Filter by programming language (optional)",
+                        },
+                      },
+                      required: ["query"],
+                    },
+                  },
+                  {
+                    name: "get_zilliqa_api_example",
+                    description: "Get specific API examples from Zilliqa documentation",
+                    inputSchema: {
+                      type: "object",
+                      properties: {
+                        api_name: {
+                          type: "string",
+                          description: "Name of the API method to get examples for",
+                        },
+                        language: {
+                          type: "string",
+                          description: "Programming language for the example (java, python, go, curl, node.js)",
+                        },
+                      },
+                      required: ["api_name"],
+                    },
+                  },
+                  {
+                    name: "list_zilliqa_apis",
+                    description: "List all available API methods in the Zilliqa documentation",
+                    inputSchema: {
+                      type: "object",
+                      properties: {
+                        category: {
+                          type: "string",
+                          description: "Category to list: 'blockchain', 'devdocs', or 'all'",
+                          enum: ["blockchain", "devdocs", "all"],
+                          default: "all",
+                        },
+                      },
+                    },
+                  },
+                ],
+              };
             } else if (request.method === "tools/call") {
-              response = await server.request(request, CallToolRequestSchema);
+              const { name, arguments: args } = request.params;
+              const docs = loadDocuments();
+              
+              switch (name) {
+                case "search_zilliqa_docs": {
+                  const { query, category = "all", language } = args as {
+                    query: string;
+                    category?: "blockchain" | "devdocs" | "all";
+                    language?: string;
+                  };
+                  
+                  let sections: DocumentSection[] = [];
+                  
+                  if (category === "all") {
+                    sections = [...docs.blockchain, ...docs.devDocs];
+                  } else if (category === "blockchain") {
+                    sections = docs.blockchain;
+                  } else if (category === "devdocs") {
+                    sections = docs.devDocs;
+                  }
+                  
+                  const results = sections.filter(section => {
+                    const matchesQuery = section.title.toLowerCase().includes(query.toLowerCase()) ||
+                                       section.description.toLowerCase().includes(query.toLowerCase()) ||
+                                       section.content.toLowerCase().includes(query.toLowerCase());
+                    
+                    const matchesLanguage = !language || section.language?.toLowerCase() === language.toLowerCase();
+                    
+                    return matchesQuery && matchesLanguage;
+                  });
+                  
+                  if (results.length === 0) {
+                    response = {
+                      content: [
+                        {
+                          type: "text",
+                          text: `No documentation found for query: "${query}"${language ? ` in language: ${language}` : ""}`,
+                        },
+                      ],
+                    };
+                  } else {
+                    const responseText = results.map(section => 
+                      `**${section.title}**\n${section.description}\n\n${section.language ? `Language: ${section.language}\n` : ""}${section.code ? `\`\`\`${section.language}\n${section.code}\n\`\`\`` : ""}\n\nSource: ${section.source}\n`
+                    ).join("\n---\n\n");
+                    
+                    response = {
+                      content: [
+                        {
+                          type: "text",
+                          text: responseText,
+                        },
+                      ],
+                    };
+                  }
+                  break;
+                }
+                
+                case "get_zilliqa_api_example": {
+                  const { api_name, language } = args as {
+                    api_name: string;
+                    language?: string;
+                  };
+                  
+                  const allSections = [...docs.blockchain, ...docs.devDocs];
+                  const apiSections = allSections.filter(section =>
+                    section.title.toLowerCase().includes(api_name.toLowerCase())
+                  );
+                  
+                  if (apiSections.length === 0) {
+                    response = {
+                      content: [
+                        {
+                          type: "text",
+                          text: `No API examples found for: "${api_name}"`,
+                        },
+                      ],
+                    };
+                  } else {
+                    let filteredSections = apiSections;
+                    if (language) {
+                      filteredSections = apiSections.filter(section =>
+                        section.language?.toLowerCase() === language.toLowerCase()
+                      );
+                      
+                      if (filteredSections.length === 0) {
+                        response = {
+                          content: [
+                            {
+                              type: "text",
+                              text: `No examples found for "${api_name}" in language: ${language}\n\nAvailable languages: ${Array.from(new Set(apiSections.map(s => s.language).filter(Boolean))).join(", ")}`,
+                            },
+                          ],
+                        };
+                        break;
+                      }
+                    }
+                    
+                    const responseText = filteredSections.map(section =>
+                      `**${section.title}**\n${section.description}\n\n${section.language ? `Language: ${section.language}\n` : ""}${section.code ? `\`\`\`${section.language}\n${section.code}\n\`\`\`` : ""}\n\nSource: ${section.source}\n`
+                    ).join("\n---\n\n");
+                    
+                    response = {
+                      content: [
+                        {
+                          type: "text",
+                          text: responseText,
+                        },
+                      ],
+                    };
+                  }
+                  break;
+                }
+                
+                case "list_zilliqa_apis": {
+                  const { category = "all" } = args as {
+                    category?: "blockchain" | "devdocs" | "all";
+                  };
+                  
+                  let sections: DocumentSection[] = [];
+                  
+                  if (category === "all") {
+                    sections = [...docs.blockchain, ...docs.devDocs];
+                  } else if (category === "blockchain") {
+                    sections = docs.blockchain;
+                  } else if (category === "devdocs") {
+                    sections = docs.devDocs;
+                  }
+                  
+                  const apiList = sections.map(section => 
+                    `• **${section.title}**${section.language ? ` (${section.language})` : ""}\n  ${section.description}`
+                  ).join("\n");
+                  
+                  response = {
+                    content: [
+                      {
+                        type: "text",
+                        text: `**Available Zilliqa APIs (${category}):**\n\n${apiList}`,
+                      },
+                    ],
+                  };
+                  break;
+                }
+                
+                default:
+                  throw new Error(`Unknown tool: ${name}`);
+              }
             } else {
               throw new Error(`Unknown method: ${request.method}`);
             }
