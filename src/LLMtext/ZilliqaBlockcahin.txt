@@ -1259,3 +1259,42 @@ CODE:
   }
 }
 ```
+
+----------------------------------------
+
+TITLE: Zilliqa Network Information
+DESCRIPTION: Comprehensive network configuration details for Zilliqa's development, testing, and production environments, including RPC endpoints, chain IDs, explorer URLs, and faucet information.
+SOURCE: https://dev.zilliqa.com/networks
+
+LANGUAGE: N/A
+CODE:
+```
+Devnet (Development Network):
+- Chain ID: 33103
+- RPC URL: https://api.zq2-devnet.zilliqa.com
+- Explorer: https://explorer.zq2-devnet.zilliqa.com
+- Faucet: https://faucet.zq2-devnet.zilliqa.com
+- Purpose: Development and testing environment with latest features
+- Reset: May be reset periodically
+
+Testnet (Test Network):
+- Chain ID: 33101
+- RPC URL: https://api.zq2-testnet.zilliqa.com
+- Explorer: https://explorer.zq2-testnet.zilliqa.com
+- Faucet: https://faucet.zq2-testnet.zilliqa.com
+- Purpose: Stable testing environment for application testing
+- Reset: Rarely reset, stable for testing
+
+Mainnet (Production Network):
+- Chain ID: 32769
+- RPC URL: https://api.zilliqa.com
+- Explorer: https://explorer.zilliqa.com
+- Faucet: N/A (Real ZIL required)
+- Purpose: Production environment with real value transactions
+- Reset: Never reset, production environment
+
+Network Selection Guidelines:
+- Use Devnet for experimental features and early development
+- Use Testnet for application testing and integration
+- Use Mainnet for production deployments only
+```

@@ -158,6 +158,21 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           },
         },
       },
+      {
+        name: "get_zilliqa_network_info",
+        description: "Get Zilliqa network information including RPC URLs, chain IDs, explorer links, and faucet information",
+        inputSchema: {
+          type: "object",
+          properties: {
+            network: {
+              type: "string",
+              description: "The network to get information for",
+              enum: ["devnet", "testnet", "mainnet"],
+            },
+          },
+          required: ["network"],
+        },
+      },
     ],
   };
 });
@@ -299,6 +314,65 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             {
               type: "text",
               text: `**Available Zilliqa APIs (${category}):**\n\n${apiList}`,
+            },
+          ],
+        };
+      }
+      
+      case "get_zilliqa_network_info": {
+        const { network } = args as {
+          network: "devnet" | "testnet" | "mainnet";
+        };
+        
+        const networkInfo = {
+          devnet: {
+            name: "Devnet (Development Network)",
+            chainId: "33103",
+            rpcUrl: "https://api.zq2-devnet.zilliqa.com",
+            explorer: "https://explorer.zq2-devnet.zilliqa.com",
+            faucet: "https://faucet.zq2-devnet.zilliqa.com",
+            purpose: "Development and testing environment with latest features",
+            reset: "May be reset periodically",
+            description: "Use for experimental features and early development"
+          },
+          testnet: {
+            name: "Testnet (Test Network)",
+            chainId: "33101",
+            rpcUrl: "https://api.zq2-testnet.zilliqa.com",
+            explorer: "https://explorer.zq2-testnet.zilliqa.com",
+            faucet: "https://faucet.zq2-testnet.zilliqa.com",
+            purpose: "Stable testing environment for application testing",
+            reset: "Rarely reset, stable for testing",
+            description: "Use for application testing and integration"
+          },
+          mainnet: {
+            name: "Mainnet (Production Network)",
+            chainId: "32769",
+            rpcUrl: "https://api.zilliqa.com",
+            explorer: "https://explorer.zilliqa.com",
+            faucet: "N/A (Real ZIL required)",
+            purpose: "Production environment with real value transactions",
+            reset: "Never reset, production environment",
+            description: "Use for production deployments only"
+          }
+        };
+        
+        const info = networkInfo[network];
+        
+        const response = `**${info.name}**\n\n` +
+          `**Chain ID:** ${info.chainId}\n` +
+          `**RPC URL:** ${info.rpcUrl}\n` +
+          `**Explorer:** ${info.explorer}\n` +
+          `**Faucet:** ${info.faucet}\n` +
+          `**Purpose:** ${info.purpose}\n` +
+          `**Reset Policy:** ${info.reset}\n` +
+          `**Usage:** ${info.description}\n`;
+        
+        return {
+          content: [
+            {
+              type: "text",
+              text: response,
             },
           ],
         };
