@@ -1354,7 +1354,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
 async function main() {
   const port = process.env.PORT || 3000;
-  const useHttp = process.env.MCP_TRANSPORT === "http" || process.env.NODE_ENV === "production";
+  const useHttp = process.env.MCP_TRANSPORT !== "stdio";
   
   if (useHttp) {
     const httpServer = http.createServer(async (req, res) => {

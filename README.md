@@ -2,17 +2,59 @@
 
 A comprehensive Model Context Protocol (MCP) server that provides access to Zilliqa blockchain documentation, API examples, address conversion tools, faucet integration, live network statistics, and automatic content fetching from source URLs.
 
-## Installation
+## Understanding Server Modes
 
-### Using Local Development Version
+This MCP server can run in two modes:
 
-Clone this repository and build the local instance:
+1. **HTTP Mode (Default)** - For web access, API calls, and cloud deployment
+   - Accessible via `http://localhost:PORT`
+   - Can be deployed to Render, Railway, etc.
+   - Supports CORS for cross-origin requests
+   - Cannot be used with Claude Desktop
+
+2. **STDIO Mode** - For Claude Desktop integration only
+   - Communicates through standard input/output
+   - Required for Claude Desktop
+   - Cannot be accessed via HTTP
+   - Set with `MCP_TRANSPORT=stdio`
+
+⚠️ **Important**: These modes are mutually exclusive. A server running in HTTP mode cannot communicate with Claude Desktop, and vice versa.
+
+## Quick Start
+
+### 1. Installation
 
 ```bash
 git clone https://github.com/Zilliqa/zilliqa-experimental.git
 cd zilliqa-experimental/lama/zilliqa-mcp
 npm install
 npm run build
+```
+
+### 2. Run the Server
+
+```bash
+# Run on default port 3000
+npm start
+
+# Or specify a custom port
+PORT=3010 npm start
+```
+
+The server will run in HTTP mode by default and be available at `http://localhost:3000` (or your specified port).
+
+⚠️ **Warning**: Running `npm start` will NOT make the server available to Claude Desktop. For Claude Desktop integration, see the [Claude Desktop Integration](#alternative-claude-desktop-integration) section below.
+
+### 3. Test the Server
+
+```bash
+# Check if server is running
+curl http://localhost:3000/
+
+# List available tools
+curl -X POST http://localhost:3000/ \
+  -H "Content-Type: application/json" \
+  -d '{"method": "tools/list", "params": {}}'
 ```
 
 ## Features
@@ -51,22 +93,58 @@ npm run build
 - **Enhanced Content Extraction** - Intelligently extracts main content from various website structures
 - **Real-time Documentation** - Always provides up-to-date information by fetching from original sources
 
-## Claude Desktop Integration
+## Production Deployment
 
-Add this to your Claude Desktop MCP configuration:
+This server is designed for easy deployment to cloud platforms:
+
+### Deploy to Render (Recommended)
+
+1. Push your code to GitHub
+2. Connect your repository to Render
+3. The included `render.yaml` will automatically configure:
+   - HTTP mode with environment variables
+   - Node.js runtime
+   - Build and start commands
+4. Your MCP server will be available at `https://your-app.onrender.com`
+
+### Deploy to Railway
+
+1. Push your code to GitHub
+2. Connect your repository to Railway
+3. The included `railway.toml` handles configuration
+4. Get your public URL from Railway dashboard
+
+### Environment Variables
+
+For production deployment, you can set:
+```bash
+NODE_ENV=production
+PORT=3000  # Or your preferred port
+```
+
+The server runs in HTTP mode by default. No need to set `MCP_TRANSPORT` unless you want STDIO mode.
+
+## Alternative: Claude Desktop Integration
+
+⚠️ **Important**: Claude Desktop only supports STDIO mode, not HTTP. If you want to use this MCP server with Claude Desktop, you must configure it for STDIO mode:
 
 ```json
 {
   "mcpServers": {
     "zilliqa": {
       "command": "node",
-      "args": ["/path/to/zilliqa-experimental/lama/zilliqa-mcp/build/index.js"]
+      "args": ["/path/to/zilliqa-experimental/lama/zilliqa-mcp/build/index.js"],
+      "env": {
+        "MCP_TRANSPORT": "stdio"  // Required for Claude Desktop
+      }
     }
   }
 }
 ```
 
 Replace `/path/to/zilliqa-experimental` with the actual path where you cloned the repository.
+
+⚠️ **Common Mistake**: Without `"MCP_TRANSPORT": "stdio"` in the config, the server will start in HTTP mode and Claude Desktop will fail to connect. You'll see the server running but Claude won't be able to use it.
 
 ### Configuration File Location
 
@@ -160,23 +238,97 @@ Access patterns include blockchain APIs, transaction handling, and smart contrac
 - Explorer: https://explorer.zilliqa.com
 ```
 
+## Persistent Local Setup with PM2
+
+For a persistent local server that auto-restarts and survives system reboots, you can use PM2:
+
+### Installing PM2
+
+```bash
+npm install -g pm2
+```
+
+### Starting with PM2
+
+```bash
+# Start the MCP server with PM2
+pm2 start build/index.js --name zilliqa-mcp
+
+# Or with custom port
+pm2 start build/index.js --name zilliqa-mcp --env PORT=3010
+
+# View logs
+pm2 logs zilliqa-mcp
+
+# Monitor status
+pm2 status
+```
+
+### PM2 Management Commands
+
+```bash
+# Stop the server
+pm2 stop zilliqa-mcp
+
+# Restart the server
+pm2 restart zilliqa-mcp
+
+# Remove from PM2
+pm2 delete zilliqa-mcp
+
+# Save PM2 configuration
+pm2 save
+
+# Setup auto-start on system boot
+pm2 startup
+```
+
+### Why Use PM2?
+
+- **Auto-restart** on crashes
+- **Persistent** across terminal sessions
+- **System startup** integration
+- **Log management** with rotation
+- **Process monitoring** built-in
+
+**Note**: PM2 is optional. For development, running directly with `npm start` is fine. For production deployment to Render/Railway, PM2 is not needed as these platforms handle process management.
+
 ## Development
 
-### Local Development
+### Running in Development Mode
+
 ```bash
-git clone https://github.com/Zilliqa/zilliqa-experimental.git
-cd zilliqa-experimental/lama/zilliqa-mcp
-npm install
-npm run build
+# Using tsx for hot-reloading during development
 npm run dev
 ```
 
-### HTTP Server Mode
-For development and testing, you can run the server in HTTP mode:
+### Making HTTP Requests
+
+Example requests to test your server:
+
 ```bash
-MCP_TRANSPORT=http npm start
+# Convert an address
+curl -X POST http://localhost:3000/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "method": "tools/call",
+    "params": {
+      "name": "convert_zilliqa_address",
+      "arguments": {"address": "zil1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq9yf6pz"}
+    }
+  }'
+
+# Get network statistics
+curl -X POST http://localhost:3000/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "method": "tools/call",
+    "params": {
+      "name": "get_network_stats",
+      "arguments": {"network": "mainnet"}
+    }
+  }'
 ```
-This runs the server on port 3000 with CORS enabled for testing.
 
 ### Testing
 ```bash
@@ -192,7 +344,57 @@ src/
 │   ├── ZilliqaDevDocs.txt
 │   └── ...
 build/                # Compiled JavaScript files
+render.yaml           # Render deployment config
+railway.toml          # Railway deployment config
 ```
+
+### Security Considerations for Public Deployment
+
+When deploying publicly, consider adding:
+- Authentication (API keys or OAuth)
+- Rate limiting to prevent abuse
+- Request logging for monitoring
+- CORS configuration for specific domains
+- Input validation (already included)
+
+## Troubleshooting
+
+### Claude Desktop Can't Find the MCP Server
+
+If Claude Desktop shows the Zilliqa tools are unavailable:
+
+1. **Check your config has STDIO mode enabled**:
+   ```json
+   "env": {
+     "MCP_TRANSPORT": "stdio"  // This line is required!
+   }
+   ```
+
+2. **Verify the server starts in STDIO mode**:
+   ```bash
+   # Test your config
+   MCP_TRANSPORT=stdio node /path/to/build/index.js
+   # Should output: "Zilliqa MCP Server running on stdio"
+   ```
+
+3. **Check Claude Desktop logs**:
+   ```bash
+   # macOS
+   tail -f ~/Library/Logs/Claude/mcp-server-zilliqa.log
+   ```
+
+### Server Runs but Claude Can't Use It
+
+This usually means the server is running in HTTP mode instead of STDIO:
+- ❌ Output: "Zilliqa MCP Server running on HTTP port 3000"
+- ✅ Output: "Zilliqa MCP Server running on stdio"
+
+### Can't Access HTTP Server from Browser
+
+If you're trying to access the HTTP server:
+- Make sure you're NOT using `MCP_TRANSPORT=stdio`
+- Default URL is `http://localhost:3000` (not HTTPS)
+- Check if another process is using the port
 
 ## License
 

@@ -11,6 +11,12 @@
     "prepublishOnly": "npm run build",
     "start": "node build/index.js",
     "dev": "tsx src/index.ts",
+    "dev:watch": "nodemon --watch src --ext ts --exec 'npm run build && node build/index.js'",
+    "pm2:start": "npm run build && pm2 start build/index.js --name zilliqa-mcp --watch build",
+    "pm2:restart": "npm run build && pm2 restart zilliqa-mcp",
+    "pm2:stop": "pm2 stop zilliqa-mcp",
+    "pm2:logs": "pm2 logs zilliqa-mcp --lines 50",
+    "setup:persistent": "./setup-persistent.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
